@@ -1,32 +1,21 @@
-# 🌟 Hospital Management System 🌟
+# Minor-Project-II
 
-## SIH - Hospital
+🌟Smart_Hospital_Management_System 🌟
 
-![Screenshot 1](https://github.com/user-attachments/assets/f1f8b416-fe17-49f9-ac4b-33731f7eb0b0)
-![Screenshot 2](https://github.com/user-attachments/assets/038616ab-b263-419c-9ce2-d6dcd03690ac)
-![Screenshot 3](https://github.com/user-attachments/assets/d3e92cef-775f-4cc8-afd6-468456818d5a)
+<!--- ![Screenshot 3](https://github.com/user-attachments/assets/d3e92cef-775f-4cc8-afd6-468456818d5a) --->
 
-### SIH 2024 Smart Care Ninjas PPT
-
-![PPT Slide 1](https://github.com/user-attachments/assets/da0c281a-62a6-4b43-b0c8-7dd79dddb2ba)
-![PPT Slide 2](https://github.com/user-attachments/assets/6d94ed24-28bc-4665-ba47-5340d8c39104)
-![PPT Slide 3](https://github.com/user-attachments/assets/e207f909-a9b7-4266-b327-5b66e3c9b38e)
-![PPT Slide 4](https://github.com/user-attachments/assets/945a74a6-ba45-4b9e-afbe-5b51adf3ec68)
-![PPT Slide 5](https://github.com/user-attachments/assets/26f03832-8a7b-4ac2-bbca-fb9af0e3a53e)
-![PPT Slide 6](https://github.com/user-attachments/assets/ddf2db52-914d-4b09-b610-ded3f50cc786)
+### Smart_Hospital_Management_System PPT
 
 ## 🚀 Getting Started
 
-To get a local copy of this project up and running, follow these steps:
-
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/ManaS066/sih-hospital_.git
+   git clone https://github.com/abhisek2004/Minor-Project-II-Smart-Hospital-Management-System.git
    ```
 
 2. **Navigate to the project directory:**
    ```bash
-   cd sih-hospital_
+   cd Minor-Project-II-Smart-Hospital-Management-System
    ```
 
 3. **Install the required dependencies:**
@@ -43,8 +32,6 @@ To get a local copy of this project up and running, follow these steps:
    ```
    http://localhost:5000
    ```
-
-<hr>
 
 <div align="center">
 
@@ -112,7 +99,8 @@ If you find this project helpful, please consider giving it a star on GitHub! Yo
 
 ## 📜 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **GPL-2.0 License** - see the [LICENSE](LICENSE) file for details.
+
 
 ## 🔄 Current Status and Future Needs
 
@@ -285,60 +273,57 @@ A robust technological solution that addresses queuing models, bed availability,
     </tr>
     <tr>
         <td>Mentor</td>
-        <td><a href="https://www.linkedin.com/in/manas-ranjan-pradhan/" target="_blank">LinkedIn</a></td>
-        <td><a href="https://github.com/ManaS066" target="_blank">GitHub</a></td>
-        <td>manasranjanpradhan2004@gmail.com</td>
-    </tr>
-    <tr>
-        <td>Mentor</td>
         <td><a href="https://www.linkedin.com/in/debabrata-mishra-148121289/" target="_blank">LinkedIn</a></td>
         <td><a href="https://github.com/debaraja-394" target="_blank">GitHub</a></td>
         <td>debabrat827@gmail.com</td>
     </tr>
-<!--      <tr>
+   <tr>
         <td>Mentor</td>
-        <td><a href=" # " target="_blank">LinkedIn</a></td>
-        <td><a href=" # " target="_blank">GitHub</a></td>
-        <td> @gmail.com</td>
+        <td><a href="https://www.linkedin.com/in/diptesh-narendra-9a5049270/" target="_blank">LinkedIn</a></td>
+        <td><a href="https://github.com/diptesh224" target="_blank">GitHub</a></td>
+        <td>narendradiptesh@gmail.com</td>
     </tr>
-    <tr>
-        <td>Mentor</td>
-        <td><a href=" # " target="_blank">LinkedIn</a></td>
-        <td><a href=" # " target="_blank">GitHub</a></td>
-        <td> @gmail.com</td>
-    </tr> -->
 </table>
 
 <hr>
 
-### 📸 Website Preview
+---
+**📊 Project Presentation**
 
-<img src="./img/1.png" />
-<img src="./img/2.png" />
-<img src="./img/3.png" />
-<img src="./img/4.png" />
-<img src="./img/5.png" />
-<img src="./img/6.png" />
-<img src="./img/7.png" />
-<img src="./img/8.png" />
-<img src="./img/9.png" />
-<img src="./img/10.png" />
-<img src="./img/11.png" />
-<img src="./img/12.png" />
+Check out our PowerPoint presentation for a detailed overview of the project! 📑
 
-🌐 **Visit our website:** [sih-hospital_](#)
+
+---
+
+🌐 **Project Website Overview**  
+
+Explore our project website for a comprehensive overview of all the details, features, and updates! 📅 Dive into sections like project goals, milestones, team introductions, and much more to get a clear understanding of what we’re working on.
+
+---
+
+
+## 📖 View the PDF in Flip Book Format
+
+You can view the project PDF in an interactive flip book format here:
+
+[📚 Flip Book PDF]( )
+
+---
+
+
+🌐 **Visit our website:** 
 
 
 ##  <h2 align = "center"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Red%20Heart.png" width="35" height="35">Our Contributors</h2>
  <h3>Thank you for contributing to our repository</h3>
 
-![Contributors](https://contrib.rocks/image?repo=ManaS066/sih-hospital_)
+![Contributors](https://contrib.rocks/image?repo=abhisek2004/Minor-Project-II-Smart-Hospital-Management-System)
 
 ## Stargazers
 
 <div align='center'>
 
-[![Stargazers repo roster for @ManaS066/sih-hospital_](https://reporoster.com/stars/ManaS066/sih-hospital_)](https://github.com/ManaS066/sih-hospital_/stargazers)
+[![Stargazers repo roster for @abhisek2004/Minor-Project-II-Smart-Hospital-Management-System](https://reporoster.com/stars/abhisek2004/Minor-Project-II-Smart-Hospital-Management-System)](https://github.com/abhisek2004/Minor-Project-II-Smart-Hospital-Management-System/stargazers)
 
 </div>
 
