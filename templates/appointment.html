@@ -249,3 +249,27 @@
   </body>
 
 </html>
+
+
+<!-- <div class="mb-3">
+  <label for="dateInput" class="form-label">Appointment Date</label>
+  <input type="date" id="dateInput" name="dat" min="{{ today }}" max="{{ max_date }}" class="form-control">
+  <small id="dateWarning" style="color: red; display: none;">Booking is allowed only between 5 AM and 5 PM.</small>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const dateInput = document.getElementById('dateInput');
+    const dateWarning = document.getElementById('dateWarning');
+    const now = new Date();
+    const currentHour = now.getHours();
+    const formattedDate = now.toISOString().split('T')[0];
+    dateInput.min = formattedDate;
+    if (currentHour < 5 || currentHour >= 17) {
+      dateInput.disabled = true;  
+      dateWarning.style.display = 'block';  
+    } else {
+      dateInput.disabled = false;
+    }
+  });
+</script> -->
