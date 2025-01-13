@@ -1,20 +1,18 @@
-from bson import ObjectId
-from flask_bcrypt import Bcrypt
+from bson import ObjectId # type: ignore
+from flask_bcrypt import Bcrypt # type: ignore
 from datetime import datetime, timedelta
-from pymongo.server_api import ServerApi
-from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi # type: ignore
+from pymongo.mongo_client import MongoClient # type: ignore
 import smtplib
 from flask import Flask, flash, jsonify, render_template, request, redirect, url_for, make_response, session, send_file, after_this_request
 import os
 import secrets
-from pymongo import MongoClient
-import jwt
+from pymongo import MongoClient # type: ignore
 from functools import wraps
-from reportlab.lib.pagesizes import A4
-import requests
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
-import qrcode
+from reportlab.lib.pagesizes import A4 # type: ignore
+from reportlab.lib.styles import getSampleStyleSheet # type: ignore
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image # type: ignore
+import qrcode # type: ignore
 import io
 from log_out import logout_bp
 
@@ -107,9 +105,6 @@ def login_required(role):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            print(f"Session data: {session}")
-            print(f"Checking if username in session: {'username' in session}")
-            print(f"Checking if role matches: {session.get('role')} == {role}")
             if 'username' not in session or session.get('role') != role:
                 return redirect(f'/{role}_login')
             return f(*args, **kwargs)
@@ -255,8 +250,7 @@ def appointment():
         print(speciality)
 
         if not doctor_count:
-            flash(f'Doctor for the selected field is not available in {
-                  hospital_name}. Sorry for the inconvenience', 'error')
+            flash(f'Doctor for the selected field is not available in {               hospital_name}. Sorry for the inconvenience', 'error')
             return redirect('/appointment')
 
         if is_slot_full:
@@ -303,8 +297,7 @@ def appointment():
 @login_required('user')
 def get_doctors(hospital, speciality):
     # Log the incoming values
-    print(f"Fetching doctors for hospital: {
-          hospital}, specialization: {speciality}")
+    print(f"Fetching doctors for hospital: {hospital}, specialization: {speciality}")
 
     # Fetch doctors based on the hospital and specialization
     doctor_names = doctors_collection.find(
@@ -327,6 +320,7 @@ def get_doctors(hospital, speciality):
 
 def check_and_allocate_time_slot(appointment_date, time_slot, hospital_name, speciality):
     # Check the number of appointments in the given time slot
+    return False
     print('check_and_allocate_time_slot is called')
     doctor_count = doctors_collection.count_documents(
         {'hospital_name': hospital_name, 'specialization': speciality})
@@ -334,8 +328,7 @@ def check_and_allocate_time_slot(appointment_date, time_slot, hospital_name, spe
 
 # Convert to datetime object
     print(appointment_date)
-    print(f"Checking for date: {appointment_date}, time slot: {
-          time_slot}, hospital: {hospital_name}")
+    print(f"Checking for date: {appointment_date}, time slot: {time_slot}, hospital: {hospital_name}")
     count = appointment_collection.count_documents({
         'appointment_date': appointment_date,
         'time_slot': time_slot,
@@ -1099,15 +1092,12 @@ def submit_discharge():
         elements.append(Spacer(1, 12))
         elements.append(
             Paragraph(f"Full Name: {patient_name}", styles['Normal']))
-        elements.append(Paragraph(f"Admission Date: {
-                        admission_date}", styles['Normal']))
+        elements.append(Paragraph(f"Admission Date: {                       admission_date}", styles['Normal']))
         elements.append(Paragraph(f"Gender: {gender}", styles['Normal']))
         elements.append(Paragraph(f"Address: {address}", styles['Normal']))
-        elements.append(Paragraph(f"Phone Number: {
-                        contact_info}", styles['Normal']))
+        elements.append(Paragraph(f"Phone Number: {contact_info}", styles['Normal']))
         elements.append(Paragraph(f"Diagnosis: {diagnosis}", styles['Normal']))
-        elements.append(Paragraph(f"Discharge Summary: {
-                        discharge_summary}", styles['Normal']))
+        elements.append(Paragraph(f"Discharge Summary: {discharge_summary}", styles['Normal']))
 
         # Generate QR code
         qr = qrcode.QRCode(
