@@ -337,7 +337,7 @@ def check_and_allocate_time_slot(appointment_date, time_slot, hospital_name, spe
     })
     print("appointment count on that day:",count)
     # Return True if the slot is full
-    return count >= 3*(doctor_count/3)
+    return count >= 3*doctor_count/3
 
 
 def calculate_queue_number(appointment_date, time_slot, hospital_name, speciality):
