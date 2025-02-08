@@ -243,14 +243,14 @@ def appointment():
         # Check if the selected time slot is available
         is_slot_full = check_and_allocate_time_slot(
             appointment_date, time_slot, hospital_name, speciality)
-        print(is_slot_full)
+        print("Is slot full",is_slot_full)
 
         doctor_count = len(doctor_names_list)
-        print(doctor_count)
-        print(speciality)
+        print("Doctor count:",doctor_count)
+        print("Speciality:",speciality)
 
         if not doctor_count:
-            flash(f'Doctor for the selected field is not available in {               hospital_name}. Sorry for the inconvenience', 'error')
+            flash(f'Doctor for the selected field is not available in {hospital_name}. Sorry for the inconvenience', 'error')
             return redirect('/appointment')
 
         if is_slot_full:
@@ -260,7 +260,7 @@ def appointment():
 
         queue_number = calculate_queue_number(
             appointment_date, time_slot, hospital_name, speciality)
-        print(queue_number)
+        print("Queue number:",queue_number)
 
         # Store the appointment in the database
         appointment_data = {
@@ -283,6 +283,7 @@ def appointment():
         return redirect('/confirmation')
 
     # If GET request, render the appointment form
+    
     hospitals = hospital_data_collection.find()
     hospital_names = [hospital['hospital_name'] for hospital in hospitals]
 
@@ -320,14 +321,13 @@ def get_doctors(hospital, speciality):
 
 def check_and_allocate_time_slot(appointment_date, time_slot, hospital_name, speciality):
     # Check the number of appointments in the given time slot
-    return False
     print('check_and_allocate_time_slot is called')
     doctor_count = doctors_collection.count_documents(
         {'hospital_name': hospital_name, 'specialization': speciality})
     print(doctor_count)
 
 # Convert to datetime object
-    print(appointment_date)
+    print("Date:",appointment_date)
     print(f"Checking for date: {appointment_date}, time slot: {time_slot}, hospital: {hospital_name}")
     count = appointment_collection.count_documents({
         'appointment_date': appointment_date,
@@ -335,9 +335,9 @@ def check_and_allocate_time_slot(appointment_date, time_slot, hospital_name, spe
         'hospital_name': hospital_name,
         'speciality': speciality
     })
-    print(count)
+    print("appointment count on that day:",count)
     # Return True if the slot is full
-    return count >= 3*int(doctor_count/3)
+    return count >= 3*(doctor_count/3)
 
 
 def calculate_queue_number(appointment_date, time_slot, hospital_name, speciality):
