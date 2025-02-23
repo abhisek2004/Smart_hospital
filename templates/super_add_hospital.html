@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,9 +8,18 @@
     <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../static/css/style.css" />
     <style>
-      body {
+      /* body {
         font-family: Arial, sans-serif;
         background-color: #fff3c7;
+
+        margin: 0;
+        padding: 0;
+      }
+       */
+      body {
+        font-family: Arial, sans-serif;
+        background: url('../static/images/super_admin_hospital_reg.jpg') no-repeat center center fixed, #fff3c7;
+        background-size: cover;
         margin: 0;
         padding: 0;
       }
@@ -47,17 +57,27 @@
       }
 
       .main-content {
-        margin-left: 250px;
         padding: 20px;
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: calc(100vh - 70px);
         /* Adjusting for navbar height */
+
+        /* Centering in the middle */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        /* Adjust width as needed */
+        text-align: center;
+        /* Center the text inside */
       }
 
+
       .card {
-        background-color: #fff8e3;
+        background-color: #fff8e357;
         border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
@@ -141,13 +161,7 @@
   <body>
     <div class="navbar navbar-expand-lg navbar-dark">
       <a class="navbar-brand" href="#">
-        <img
-          src="../static/images/delhi.png"
-          alt="Delhi Logo"
-          class="rounded-circle"
-          width="40"
-          height="40"
-        />
+        <img src="../static/images/delhi.png" alt="Delhi Logo" class="rounded-circle" width="40" height="40" />
       </a>
       <h3 class="text-light">Government of NCT of Delhi</h3>
       <ul class="navbar-nav ml-auto">
@@ -160,51 +174,28 @@
         <h3>Add New Hospital</h3>
         <form method="POST" action="/superadmin/addHospital" id="hospitalForm">
           <label for="hospitalName">Hospital Name:</label>
-          <input
-            type="text"
-            id="hospitalName"
-            name="hospitalName"
-            required
-            pattern="^[A-Za-z\s]{3,50}$"
-            title="Hospital name should be between 3 to 50 characters and only contain letters and spaces."
-          /><br />
+          <input type="text" id="hospitalName" name="hospitalName" required pattern="^[A-Za-z\s]{3,50}$"
+            title="Hospital name should be between 3 to 50 characters and only contain letters and spaces." /><br />
 
           <label for="hospitalmail">Hospital Email ID:</label>
-          <input
-            type="email"
-            id="hospitalmail"
-            name="hospitalmail"
-            required
-          /><br />
+          <input type="email" id="hospitalmail" name="hospitalmail" required /><br />
 
           <label for="hospitalpass">Password:</label>
-          <input
-            type="password"
-            id="hospitalpass"
-            name="hospitalpass"
-            required
-            pattern=".{8,}"
-            title="Password should be at least 8 characters long."
-          /><br />
+          <input type="password" id="hospitalpass" name="hospitalpass" required pattern=".{8,}"
+            title="Password should be at least 8 characters long." /><br />
           <!-- Button container -->
           <div style="text-align: center; margin-top: 10px">
-            <button
-              type="submit"
-              style="
+            <button type="submit" style="
                 background-color: #00637f;
                 color: white;
                 border: none;
                 padding: 10px 15px;
                 border-radius: 4px;
                 cursor: pointer;
-              "
-            >
+              ">
               Add Hospital
             </button>
-            <button
-              type="button"
-              onclick="window.location.href='/superadmin';"
-              style="
+            <button type="button" onclick="window.location.href='/superadmin';" style="
                 background-color: #00637f;
                 color: white;
                 border: none;
@@ -212,8 +203,7 @@
                 border-radius: 4px;
                 cursor: pointer;
                 margin-left: 10px;
-              "
-            >
+              ">
               Return to Dashboard
             </button>
           </div>
@@ -222,4 +212,5 @@
       </div>
     </div>
   </body>
+
 </html>
