@@ -8,35 +8,33 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <!-- <link rel="stylesheet" href="index.css"> -->
         <style>
-            /*style.css */
-            @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+            /* Google Font Import */
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
             body {
                 margin: 0;
                 display: flex;
                 align-items: center;
-                justify-content: space-around;
+                justify-content: center;
                 flex-direction: column;
                 height: 100vh;
-                /* background-color: #bde5d2; */
-                font-family: 'Poppins', sans-serif;
-
-            }
-
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                /* background-color: #FFF3C7; */
                 background-image: url(../static/images/Pediatrics.jpg);
                 background-repeat: no-repeat;
                 background-size: cover;
+                background-position: center;
+                font-family: 'Poppins', sans-serif;
+                backdrop-filter: blur(6px);
             }
 
             .textup {
                 text-align: center;
-                color: #00637f !important;
+                color: #00637f;
                 font-weight: 700;
+                font-size: 28px;
+                margin-bottom: 10px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
             }
 
             i {
@@ -44,11 +42,13 @@
             }
 
             .form-box {
-                background-color: #fff;
-                box-shadow: 0 0 10px rgba(36, 67, 40, 0.8);
-                padding: 15px;
-                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.341);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+                padding: 25px;
+                border-radius: 16px;
                 width: 500px;
+                backdrop-filter: blur(12px);
+                animation: fadeInUp 0.8s ease-out;
             }
 
             form {
@@ -58,53 +58,101 @@
 
             .radio-group {
                 display: flex;
+                align-items: center;
+                gap: 12px;
                 margin-bottom: 16px;
             }
 
             input[type="radio"] {
-                margin-right: 8px;
+                margin-right: 4px;
+                transform: scale(1.2);
+                cursor: pointer;
             }
 
             label {
                 display: block;
                 margin-bottom: 8px;
                 font-size: 17px;
-                color: #00637f !important;
-                font-weight: 600;
+                color: #003f5c;
+                font-weight: bold;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
             }
 
             input,
             textarea {
                 width: 100%;
-                padding: 8px;
-                margin-bottom: 12px;
+                padding: 12px;
+                margin-bottom: 16px;
                 box-sizing: border-box;
-                border-radius: 10px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                background-color: #f9f9f9;
+                font-size: 14px;
+                transition: all 0.3s ease;
+                outline: none;
+            }
 
+            input:focus,
+            textarea:focus {
+                border-color: #00637f;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0, 99, 127, 0.2);
             }
 
             button {
-                background-color: #00637f !important;
+                background: linear-gradient(135deg, #00637f, #00b894);
                 color: #fff;
-                padding: 10px;
+                padding: 12px;
                 border: none;
                 border-radius: 25px;
                 cursor: pointer;
                 width: 100%;
-                font-size: 15px;
-                transition: .2s linear;
+                font-size: 16px;
+                font-weight: bold;
+                text-transform: uppercase;
+                transition: all 0.3s ease;
+                letter-spacing: 1px;
+                box-shadow: 0 4px 10px rgba(0, 99, 127, 0.3);
             }
 
             button:hover {
-                background-color: #00637f !important;
-                border: none;
-                transform: translateY(-10px);
+                background: linear-gradient(135deg, #00b894, #00637f);
+                transform: translateY(-4px);
             }
 
             h1 {
-                color: rgb(128, 0, 0);
+                color: #800000;
+                font-size: 30px;
+                margin-bottom: 5px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @media (max-width: 600px) {
+                .form-box {
+                    width: 90%;
+                    padding: 20px;
+                }
+
+                .textup {
+                    font-size: 22px;
+                }
             }
         </style>
+
     </head>
 
     <body>
@@ -112,7 +160,7 @@
         <div class="form-box">
             <div class="textup">
                 <i class="fa fa-solid fa-clock"></i>
-                It only takes two minutes!!
+                It only takes one minutes!!
             </div>
             <form>
                 <label for="uname">
