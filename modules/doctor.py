@@ -1,6 +1,6 @@
 from flask import request,session,redirect,Blueprint,flash,render_template
 from flask_bcrypt import Bcrypt
-from modules.db import doctors_collection,appointment_collection,hospital_data_collection,patients_collection
+from modules.db import doctors_collection,appointment_collection,hospital_data_collection,patients_collection,feedback_collection
 from modules.login_required import login_required
 
 doctor_blueprint = Blueprint('doctor_blueprint',__name__)
@@ -180,3 +180,23 @@ def status():
                            available_icu_beds=available_icu_beds,
                            total_ventilators=total_ventilators,
                            available_ventilators=available_ventilators)
+
+@doctor_blueprint.route('/doctor_feedback',methods = ['GET','POST'])
+@login_required('doctor')
+def feedback():
+    if request.method == 'POST':
+       name = request.form['uname'] 
+       email = request.form['email']
+       phone = request.form['phone']
+       service_satisfaction = request.form['satisfy']
+       issue = request.form['msg']
+       feedback_data = {
+            'name':name,
+            'email':email,
+            'phone':phone,
+            'service':service_satisfaction,
+            'issue':issue
+        }
+
+       print(feedback_collection.insert_one(feedback_data))
+    return render_template('feedback.html')

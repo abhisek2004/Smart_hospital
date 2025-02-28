@@ -460,3 +460,4 @@ def submit_discharge():
         return send_file(pdf_buffer, as_attachment=True, download_name='patient_id_card.pdf', mimetype='application/pdf')
         # return redirect('/admin')
     return render_template('Patient_discharge.html')
+

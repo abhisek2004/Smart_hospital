@@ -1636,18 +1636,18 @@
                                 <p class="d-inline-block border rounded-pill py-1 px-4">Contact Us</p>
                                 <h1 class="mb-4">Have Any Query? Please Contact Us!</h1>
 
-                                <form>
+                                <form method="post" action="/user_feedback">
                                     <div class="row g-3">
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" id="name"
+                                                <input type="text" class="form-control" name="name" id="name"
                                                     placeholder="Your Name">
                                                 <label for="name">Your Name</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input type="email" class="form-control" id="email"
+                                                <input type="email" class="form-control" id="email" name="email"
                                                     placeholder="Your Email">
                                                 <label for="email">Your Email</label>
                                             </div>
@@ -1655,14 +1655,14 @@
                                         <!-- <div class="row"> -->
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input type="tel" class="form-control" id="phone"
+                                                <input type="tel" class="form-control" id="phone" name="phone"
                                                     placeholder="Your Phone Number">
                                                 <label for="phone">Your Phone Number</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" id="city"
+                                                <input type="text" class="form-control" id="city" name="city"
                                                     placeholder="Your City">
                                                 <label for="city">Your City</label>
                                             </div>
@@ -1670,21 +1670,21 @@
                                         <!-- </div> -->
                                         <div class="col-12">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" id="subject"
+                                                <input type="text" class="form-control" id="subject" name="nearest_hospital"
                                                     placeholder="Subject">
                                                 <label for="subject">Nearest Hospital</label>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" id="subject"
+                                                <input type="text" class="form-control" id="subject" name="subject"
                                                     placeholder="Subject">
                                                 <label for="subject">Subject</label>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-floating">
-                                                <textarea class="form-control" placeholder="Leave a message here"
+                                                <textarea class="form-control" placeholder="Leave a message here" name="message"
                                                     id="message" style="height: 100px"></textarea>
                                                 <label for="message">Message</label>
                                             </div>

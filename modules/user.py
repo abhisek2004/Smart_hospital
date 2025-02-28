@@ -1,6 +1,6 @@
 from flask import request,session,redirect,flash,render_template,Blueprint,jsonify
 from flask_bcrypt import Bcrypt
-from modules.db import users_collection,appointment_collection,hospital_data_collection,doctors_collection
+from modules.db import users_collection,appointment_collection,hospital_data_collection,doctors_collection,feedback_collection
 from datetime import datetime,timedelta
 from modules.login_required import login_required
 
@@ -213,3 +213,20 @@ def calculate_queue_number(appointment_date, time_slot, hospital_name, specialit
 
     return count+1
 
+@user_blueprint.route('/user_feedback',methods=['POST'])
+@login_required('user')
+def feedback():
+       name = request.form['name']  
+       email = request.form['email']
+       city = request.form['city']
+       nearest_hospital = request.form['nearest_hospital']
+       message = request.form['message']
+       
+       data = {
+           'name':name,
+           'email':email,
+           'city':city,
+           'nearest_hospital':nearest_hospital,
+           'message':message
+       }
+       feedback_collection.insert_one(data)
