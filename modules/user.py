@@ -213,20 +213,20 @@ def calculate_queue_number(appointment_date, time_slot, hospital_name, specialit
 
     return count+1
 
-@user_blueprint.route('/user_feedback',methods=['POST'])
-@login_required('user')
-def feedback():
-       name = request.form['name']  
-       email = request.form['email']
-       city = request.form['city']
-       nearest_hospital = request.form['nearest_hospital']
-       message = request.form['message']
+# @user_blueprint.route('/user_feedback',methods=['POST'])
+# @login_required('user')
+# def feedback():
+#        name = request.form['name']  
+#        email = request.form['email']
+#        city = request.form['city']
+#        nearest_hospital = request.form['nearest_hospital']
+#        message = request.form['message']
        
-       data = {
-           'name':name,
-           'email':email,
-           'city':city,
-           'nearest_hospital':nearest_hospital,
-           'message':message
-       }
-       feedback_collection.insert_one(data)
+#        data = {
+#            'name':name,
+#            'email':email,
+#            'city':city,
+#            'nearest_hospital':nearest_hospital,
+#            'message':message
+#        }
+#        feedback_collection.insert_one(data)
