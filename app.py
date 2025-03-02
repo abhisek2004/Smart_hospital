@@ -1,6 +1,6 @@
 from flask_bcrypt import Bcrypt
 from flask import Flask,render_template, request,redirect
-from log_out import logout_bp
+from modules.log_out import logout_bp
 from modules.admin import admin_blueprint
 from modules.superadmin import superadmin_blueprint
 from modules.doctor import doctor_blueprint
