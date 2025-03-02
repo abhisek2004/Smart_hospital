@@ -4,7 +4,7 @@ from modules.log_out import logout_bp
 from modules.admin import admin_blueprint
 from modules.superadmin import superadmin_blueprint
 from modules.doctor import doctor_blueprint
-from modules.db import appointment_collection,hospital_data_collection,contact_collection,doctors_collection,users_collection,feedback_collection
+from modules.db import contact_collection,feedback_collection
 from modules.user import user_blueprint
 
 app = Flask(__name__)
@@ -17,22 +17,31 @@ bcrypt = Bcrypt()
 app.secret_key = "anything_secret_is_good"
 
 
+@app.route('/',methods=['GET'])
+def home():
+    return render_template('index.html')
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/contact', methods=['GET', 'POST'])
 def landing():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
-        number = request.form['number']
-        comment = request.form['comment']
+        number = request.form['phone']
+        city = request.form['city']
+        nearest_hospial = request.form['nearest_hospital']
+        subject = request.form['subject']
+        message = request.form['message']
         contact_data = {
             'name': name,
             'email': email,
             'number': number,
-            'comment': comment
+            'city':city,
+            'nearest_hospital':nearest_hospial,
+            'message':message,
+            'subject':subject
         }
         contact_collection.insert_one(contact_data)
-    return render_template('index.html')
+    return render_template('contact.html')
 
 @app.route('/all_doctor')
 def all_doc():
@@ -65,17 +74,16 @@ def feedback():
        }
        feedback_collection.insert_one(data) 
        return redirect('/')
-# where is the change
+
+@app.route('/blog',methods=['GET','POST'])
+def blog_single():
+    return render_template('blog-single.html')
+
 
 # a customized error handler
-
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'),404
-
-
-
-# show
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)
