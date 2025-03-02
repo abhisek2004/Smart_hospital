@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,10 +10,8 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        /* background-color: #fff3c7; */
         background-image: url(../static/images/userdash.jpg);
         background-size: cover;
-        /* background-position: center; */
         background-repeat: no-repeat;
       }
 
@@ -59,10 +58,16 @@
 
       .card {
         background-color: #ffffffc8;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         margin-bottom: 20px;
         padding: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
       }
 
       .card h3 {
@@ -92,25 +97,24 @@
       table {
         width: 95%;
         margin: 20px auto;
-        border-radius: 50%;
         border-collapse: collapse;
       }
 
       th,
       td {
-        border: 1px solid #000000;
+        border: 3px double #000000;
         text-align: left;
         padding: 10px;
-        
+
       }
 
       th {
         background-color: #f2f2f2;
       }
 
-      .queue_number{
-        color : #ff0000;
-        
+      .queue_number {
+        color: #ff0000;
+
       }
     </style>
   </head>
@@ -120,12 +124,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img
-            src="../static/images/delhi.png"
-            alt="Delhi Logo"
-            width="40"
-            height="40"
-          />
+          <img src="../static/images/delhi.png" alt="Delhi Logo" width="40" height="40" />
         </a>
         <h3 class="text-light">Government of NCT of Delhi</h3>
         <div class="collapse navbar-collapse" id="navbarColor01">
@@ -137,9 +136,7 @@
               <a class="nav-link text-light" href="/appointment">Appointment</a>
             </li>
             <li class="nav-item mr-3">
-              <a class="nav-link text-light" href="/bed_status"
-                >Bed Availability</a
-              >
+              <a class="nav-link text-light" href="/bed_status">Bed Availability</a>
             </li>
             <!-- <li class="nav-item mr-3">
               <a class="nav-link text-light" href="/#doctor">Doctors</a>
@@ -165,19 +162,16 @@
         Welcome, <span class="highlight">{{ user.name }}</span>
       </h1>
 
-      <div
-        class="card"
-        style="
+      <div class="card" style="
           padding: 20px;
           border-radius: 10px;
           box-shadow: 0 0 15px rgba(26, 255, 0, 0.4);
           transition: box-shadow 0.3s ease;
-        "
-      >
+        ">
         <h3>My Appointments</h3>
-        <p>View your upcoming and past appointments.</p>
-        <table >
-          <tr >
+        <p>View your upcoming appointments.</p>
+        <table>
+          <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Number</th>
@@ -221,4 +215,5 @@
             </div> -->
     </div>
   </body>
+
 </html>
