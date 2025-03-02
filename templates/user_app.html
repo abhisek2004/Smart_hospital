@@ -7,6 +7,7 @@
     <title>User Dashboard</title>
     <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -138,17 +139,11 @@
             <li class="nav-item mr-3">
               <a class="nav-link text-light" href="/bed_status">Bed Availability</a>
             </li>
-            <!-- <li class="nav-item mr-3">
-              <a class="nav-link text-light" href="/#doctor">Doctors</a>
-            </li> -->
-            <!-- <li class="nav-item mr-3">
-              <a class="nav-link text-light" href="/#OurDepartments"
-                >Departments</a
-              >
-            </li> -->
-            <!-- <li class="nav-item mr-3">
-              <a class="nav-link text-light" href="/">Contact Us</a>
-            </li> -->
+            <li class="nav-item mr-3">
+              <a class="nav-link text-light" href="#" data-bs-toggle="modal" data-bs-target="#messagesModal">
+                <i class="fas fa-bell"></i>
+              </a>
+            </li>
             <li class="nav-item mr-3">
               <a class="nav-link text-light" href="/user_logout">Logout</a>
             </li>
@@ -206,14 +201,31 @@
         }
       </style>
 
-      <!--  -->
+      <!-- Messages Modal -->
+      <div class="modal fade" id="messagesModal" tabindex="-1" aria-labelledby="messagesModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="messagesModalLabel">Messages</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <ul class="list-group">
+                {% for message in messages %}
+                <li class="list-group-item">{{ message.content }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <!-- <div class="card">
-                <h3>My Profile</h3>
-                <p>Manage your personal information and update your profile details.</p>
-                <a href="#">View Profile</a>
-            </div> -->
     </div>
+
+    <script src="../static/js/bootstrap.bundle.min.js"></script>
   </body>
 
 </html>
