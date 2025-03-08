@@ -1,57 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hospital Details Form</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: 'Roboto', sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #fff3c7;
+        /* background-color: #f0f2f5; */
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
+        background-image: url("../static/images/appintment\ \(2\).jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: #333;
       }
 
       form {
-        background-color: #ededed;
-        /* Light yellow background */
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: rgba(255, 255, 255, 0.517);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 100%;
         max-width: 800px;
-        /* Set maximum width for the form */
         box-sizing: border-box;
         overflow-y: auto;
-        /* Add vertical scrollbar if needed */
         max-height: 90vh;
-        /* Limit the height to viewport height */
       }
 
       h1 {
         text-align: center;
         margin-bottom: 20px;
+        color: #222;
+        font-size: 24px;
       }
 
       .form-group {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
       }
 
       .form-group label {
         display: block;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #222;
       }
 
       .form-group input,
       .form-group select,
       .form-group textarea {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
         box-sizing: border-box;
+        font-size: 16px;
+        color: #333;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        outline: none;
       }
 
       .form-group input[type="checkbox"],
@@ -65,24 +83,51 @@
       }
 
       .form-group button {
-        background-color: #28a745;
+        background-color: #00637f;
         color: white;
         border: none;
-        padding: 10px 20px;
+        padding: 12px 20px;
         cursor: pointer;
         border-radius: 5px;
         font-size: 16px;
+        transition: background-color 0.3s ease;
       }
 
       .form-group button:hover {
-        background-color: #218838;
+        background-color: #0056b3;
+      }
+
+      @media (max-width: 768px) {
+        form {
+          padding: 20px;
+        }
+
+        .form-group {
+          margin-bottom: 15px;
+        }
+
+        .form-group label {
+          margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+          padding: 10px;
+          font-size: 14px;
+        }
+
+        .form-group button {
+          padding: 10px 15px;
+          font-size: 14px;
+        }
       }
     </style>
   </head>
 
   <body>
     <form action="/admin/add_detail" method="post">
-      <h1>Hospital Details Form</h1>
+      <h1>Hospital Details Registration Form</h1>
       <!-- Basic Information -->
       <div class="form-group">
         <label for="hospitalName">Hospital Name:</label>
@@ -120,11 +165,7 @@
       </div>
       <div class="form-group">
         <label for="emergencyContactNumber">Emergency Contact Number:</label>
-        <input
-          type="tel"
-          id="emergencyContactNumber"
-          name="emergencyContactNumber"
-        />
+        <input type="tel" id="emergencyContactNumber" name="emergencyContactNumber" />
       </div>
       <div class="form-group">
         <label for="emailAddress">Email Address:</label>
@@ -146,12 +187,7 @@
       </div>
       <div class="form-group">
         <label for="numberOfICUBeds">Total ICU Beds:</label>
-        <input
-          type="number"
-          id="numberOfICUBeds"
-          name="numberOfICUBeds"
-          required
-        />
+        <input type="number" id="numberOfICUBeds" name="numberOfICUBeds" required />
       </div>
       <div class="form-group">
         <label for="numberOfICUBeds">ICU Beds Occupied:</label>
@@ -159,21 +195,11 @@
       </div>
       <div class="form-group">
         <label for="numberOfVentilators">Toatal Ventilators Bed:</label>
-        <input
-          type="number"
-          id="numberOfVentilators"
-          name="numberOfVentilators"
-          required
-        />
+        <input type="number" id="numberOfVentilators" name="numberOfVentilators" required />
       </div>
       <div class="form-group">
         <label for="numberOfVentilators">Ventilators Bed Occupied:</label>
-        <input
-          type="number"
-          id="ventilator_occupied"
-          name="ventilator_occupied"
-          required
-        />
+        <input type="number" id="ventilator_occupied" name="ventilator_occupied" required />
       </div>
       <div class="form-group">
         <label for="emergencyDepartment">Emergency Department:</label>
@@ -186,24 +212,13 @@
 
       <div class="form-group">
         <label for="specialization">Enter Specialization:</label>
-        <input
-          type="text"
-          id="specialization"
-          name="specialization"
-          placeholder="Enter Specialization"
-          required
-        />
+        <input type="text" id="specialization" name="specialization" placeholder="Enter Specialization" required />
       </div>
 
       <!-- Operational Details -->
       <div class="form-group">
         <label for="hospitalOperatingHours">Hospital Operating Hours:</label>
-        <input
-          type="text"
-          id="hospitalOperatingHours"
-          name="hospitalOperatingHours"
-          required
-        />
+        <input type="text" id="hospitalOperatingHours" name="hospitalOperatingHours" required />
       </div>
       <div class="form-group">
         <label for="visitingHours">Visiting Hours:</label>
@@ -222,23 +237,11 @@
 
       <div class="form-group">
         <label for="totalNumberOfNurses">Total Number of Nurses:</label>
-        <input
-          type="number"
-          id="totalNumberOfNurses"
-          name="totalNumberOfNurses"
-          required
-        />
+        <input type="number" id="totalNumberOfNurses" name="totalNumberOfNurses" required />
       </div>
       <div class="form-group">
-        <label for="administrativeStaffCount"
-          >Administrative Staff Count:</label
-        >
-        <input
-          type="number"
-          id="administrativeStaffCount"
-          name="administrativeStaffCount"
-          required
-        />
+        <label for="administrativeStaffCount">Administrative Staff Count:</label>
+        <input type="number" id="administrativeStaffCount" name="administrativeStaffCount" required />
       </div>
 
       <!-- Additional Services -->
@@ -260,12 +263,8 @@
       </div>
       <div class="form-group">
         <label for="diagnosticServices">Enter Diagnostic Services:</label>
-        <textarea
-          id="diagnosticServices"
-          name="diagnosticServices"
-          rows="4"
-          placeholder="Enter Diagnostic Services"
-        ></textarea>
+        <textarea id="diagnosticServices" name="diagnosticServices" rows="4"
+          placeholder="Enter Diagnostic Services"></textarea>
       </div>
 
       <div class="form-group">
@@ -273,4 +272,5 @@
       </div>
     </form>
   </body>
+
 </html>
