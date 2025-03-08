@@ -11,36 +11,93 @@
     <style>
       body {
         background-image: url("../static/images/appintment\ \(2\).jpg");
-        background-size: cover;
+        /* background-size: cover; */
         background-position: center;
         background-repeat: no-repeat;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+      }
+
+      .navbar {
+        background-color: #00637f !important;
+      }
+
+      .navbar-brand img {
+        border-radius: 50%;
+      }
+
+      .navbar h3 {
+        color: white;
       }
 
       .form-data {
         transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        background-color: #ffffffa5;
+        background-color: rgba(255, 255, 255, 0.9);
         border: 2px solid transparent;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 50px;
       }
 
       .form-data:hover {
         transform: scale(1.02);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        border-color: #f1b5fac9;
+        border-color: #00637f;
+      }
+
+      .form-head {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .form-head h2 {
+        color: #00637f;
+        font-weight: bold;
+      }
+
+      .form-body {
+        padding: 20px;
+      }
+
+      .form-label {
+        font-weight: bold;
+        color: #00637f;
+      }
+
+      .form-control {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      .form-control:focus {
+        border-color: #00637f;
+        box-shadow: 0 0 5px rgba(0, 99, 127, 0.5);
+      }
+
+      .btn-appointment {
+        background-color: #00637f;
+        color: white;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-appointment:hover {
+        background-color: #004f5f;
+      }
+
+      .alert-danger {
+        background-color: rgba(255, 0, 0, 0.1);
+        border: 1px solid rgba(255, 0, 0, 0.2);
+        color: #ff0000;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 20px;
       }
 
       #dateInput::-webkit-calendar-picker-indicator {
         color: transparent;
-      }
-
-      .form-body {
-        padding-left: 30px;
-        padding-right: 30px;
-      }
-
-      .form-head {
-        margin-top: 20px;
-        margin-left: 30%;
-        align-content: center;
       }
     </style>
   </head>
@@ -249,27 +306,3 @@
   </body>
 
 </html>
-
-
-<!-- <div class="mb-3">
-  <label for="dateInput" class="form-label">Appointment Date</label>
-  <input type="date" id="dateInput" name="dat" min="{{ today }}" max="{{ max_date }}" class="form-control">
-  <small id="dateWarning" style="color: red; display: none;">Booking is allowed only between 5 AM and 5 PM.</small>
-</div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const dateInput = document.getElementById('dateInput');
-    const dateWarning = document.getElementById('dateWarning');
-    const now = new Date();
-    const currentHour = now.getHours();
-    const formattedDate = now.toISOString().split('T')[0];
-    dateInput.min = formattedDate;
-    if (currentHour < 5 || currentHour >= 17) {
-      dateInput.disabled = true;  
-      dateWarning.style.display = 'block';  
-    } else {
-      dateInput.disabled = false;
-    }
-  });
-</script> -->
