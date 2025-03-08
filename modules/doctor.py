@@ -200,3 +200,8 @@ def feedback():
 
        print(feedback_collection.insert_one(feedback_data))
     return render_template('feedback.html')
+
+    
+@doctor_blueprint.route('/video_call',methods=['GET'])
+def video():
+    return render_template('emergency_scheduling.html')

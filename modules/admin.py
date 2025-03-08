@@ -39,7 +39,7 @@ def admin():
     else:
         return redirect('/admin/add_detail')
 
-
+@admin_blueprint.route('/add_patient',methods=['GET','POST'])
 @login_required('admin')
 def add_patient():
     if request.method == 'POST':
