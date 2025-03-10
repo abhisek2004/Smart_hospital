@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <style>
       body {
         font-family: "Roboto", sans-serif;
@@ -104,8 +106,19 @@
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        margin-bottom: 20px;
-        height: 500px;
+        /* height: 500px; */
+        text-align: center;
+      }
+
+      .chart-row {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .chart-row .chart-container {
+        width: 48%;
       }
 
       @media (max-width: 768px) {
@@ -121,6 +134,14 @@
 
         .grid-container {
           grid-template-columns: 1fr;
+        }
+
+        .chart-row {
+          flex-direction: column;
+        }
+
+        .chart-row .chart-container {
+          width: 100%;
         }
       }
     </style>
@@ -148,41 +169,126 @@
     <div class="main-content">
       <h2>Admin Dashboard for {{hospital_name}}</h2>
 
+      <style>
+        .dashboard-card {
+          border-radius: 10px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s, box-shadow 0.3s;
+          height: 100%;
+          overflow: hidden;
+          padding: 20px;
+          text-align: center;
+          color: white;
+        }
+
+        .dashboard-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+          font-size: 2.5rem;
+          margin-bottom: 10px;
+        }
+
+        .card-title {
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin-bottom: 5px;
+        }
+
+        .card-value {
+          font-size: 2rem;
+          font-weight: 700;
+        }
+
+        /* Grid Layout */
+        .grid-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 20px;
+        }
+
+        /* Color Variations */
+        .bg-primary {
+          background-color: #007bff;
+        }
+
+        .bg-warning {
+          background-color: #ffc107;
+        }
+
+        .bg-success {
+          background-color: #28a745;
+        }
+
+        .bg-danger {
+          background-color: #dc3545;
+        }
+
+        .bg-info {
+          background-color: #17a2b8;
+        }
+
+        .bg-dark {
+          background-color: #343a40;
+        }
+      </style>
+
       <div class="grid-container">
-        <div class="card">
-          <h3>Total appointments</h3>
-          <p>{{count}}</p>
+        <div class="dashboard-card bg-primary">
+          <i class="fas fa-calendar-check card-icon"></i>
+          <div class="card-title">Total Appointments</div>
+          <div class="card-value">{{count}}</div>
         </div>
-        <div class="card">
-          <h3>Doctors</h3>
-          <p>{{doc}}</p>
+        <div class="dashboard-card bg-warning">
+          <i class="fas fa-user-md card-icon"></i>
+          <div class="card-title">Doctors</div>
+          <div class="card-value">{{doc}}</div>
         </div>
-        <div class="card">
-          <h3>Total patient</h3>
-          <p>{{patient}}</p>
+        <div class="dashboard-card bg-success">
+          <i class="fas fa-procedures card-icon"></i>
+          <div class="card-title">Total Patients</div>
+          <div class="card-value">{{patient}}</div>
         </div>
-        <div class="card">
-          <h3>General bed</h3>
-          <p>{{vacent_general}}/{{general_total}}</p>
+        <div class="dashboard-card bg-info">
+          <i class="fas fa-bed card-icon"></i>
+          <div class="card-title">General Beds</div>
+          <div class="card-value">{{vacent_general}}/{{general_total}}</div>
         </div>
-        <div class="card">
-          <h3>ICU Bed</h3>
-          <p>{{vacent_icu}}/{{icu_total}}</p>
+        <div class="dashboard-card bg-dark">
+          <i class="fas fa-procedures card-icon"></i>
+          <div class="card-title">ICU Beds</div>
+          <div class="card-value">{{vacent_icu}}/{{icu_total}}</div>
         </div>
-        <div class="card">
-          <h3>Ventilator</h3>
-          <p>{{vacent_ventilator}}/{{vantilator_total}}</p>
+        <div class="dashboard-card bg-danger">
+          <i class="fas fa-lungs card-icon"></i>
+          <div class="card-title">Ventilators</div>
+          <div class="card-value">{{vacent_ventilator}}/{{vantilator_total}}</div>
         </div>
       </div>
+
+      <!-- FontAwesome for icons -->
+      <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+
 
       <!-- Bar Chart -->
       <div class="chart-container">
         <canvas id="hospitalBarChart"></canvas>
       </div>
-
-      <!-- Doughnut Chart -->
-      <div class="chart-container">
-        <canvas id="hospitalDoughnutChart"></canvas>
+      <br>
+      <!-- Doughnut Charts Side by Side -->
+      <div class="chart-row">
+        <div class="chart-container">
+          <h4 class="text-center">Occupied Resources</h4>
+          <canvas id="hospitalDoughnutChartFilled"></canvas>
+        </div>
+        <div class="chart-container">
+          <h4 class="text-center">Available Resources</h4>
+          <canvas id="hospitalDoughnutChartAvailable"></canvas>
+        </div>
       </div>
     </div>
 
@@ -195,8 +301,7 @@
       }
 
       // Bar Chart
-      const ctxBar = document.getElementById('hospitalBarChart').getContext('2d');
-      new Chart(ctxBar, {
+      new Chart(document.getElementById('hospitalBarChart').getContext('2d'), {
         type: 'bar',
         data: {
           labels: ["Appointments", "Doctors", "Patients", "General Beds", "ICU Beds", "Ventilators"],
@@ -208,22 +313,30 @@
             }
         });
 
-      // Doughnut Chart
-      const ctxDoughnut = document.getElementById('hospitalDoughnutChart').getContext('2d');
-      new Chart(ctxDoughnut, {
+      // Doughnut Chart - Filled Resources
+      new Chart(document.getElementById('hospitalDoughnutChartFilled').getContext('2d'), {
         type: 'doughnut',
         data: {
-          labels: ["Appointments", "Doctors", "Patients", "General Beds", "ICU Beds", "Ventilators"],
+          labels: ["Occupied General Beds", "Occupied ICU Beds", "Occupied Ventilators"],
           datasets: [{
-            data: [{{ count }}, {{ doc }}, {{ patient }}, {{ general_total }}, {{ icu_total }}, {{ vantilator_total }}],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"]
+            data: [{{ general_total - vacent_general }}, {{ icu_total - vacent_icu }}, {{ vantilator_total - vacent_ventilator }}],
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+                }]
+            }
+        });
+
+      // Doughnut Chart - Available Resources
+      new Chart(document.getElementById('hospitalDoughnutChartAvailable').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: ["Available General Beds", "Available ICU Beds", "Available Ventilators"],
+          datasets: [{
+            data: [{{ vacent_general }}, {{ vacent_icu }}, {{ vacent_ventilator }}],
+        backgroundColor: ["#4BC0C0", "#9966FF", "#FF9F40"]
                 }]
             }
         });
     </script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 
 </html>
