@@ -132,107 +132,246 @@
           margin-left: 0;
         }
       }
+
+
+      .grid-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-around;
+      }
+
+      .card {
+        background: linear-gradient(135deg, #1abc9c, #16a085);
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        flex: 1;
+        min-width: 200px;
+        max-width: 250px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .card i {
+        font-size: 30px;
+        margin-bottom: 10px;
+        color: white;
+      }
+
+      .card h3 {
+        font-size: 18px;
+        margin: 5px 0;
+        text-transform: uppercase;
+      }
+
+      .card p {
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        width: 250px;
+        height: 100vh;
+        background: #1a1a2e;
+        color: white;
+        position: fixed;
+        left: 0;
+        top: 0;
+        transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        padding-top: 20px;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .sidebar.collapsed {
+        width: 80px;
+      }
+
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        font-size: 1.2rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
+      }
+
+      .logo i {
+        font-size: 1.5rem;
+        color: #00c9a7;
+      }
+
+      .logo-text {
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      .sidebar.collapsed .logo-text {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .toggle-btn {
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: white;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .toggle-btn:hover {
+        transform: scale(1.1);
+      }
+
+      .sidebar-menu {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+      }
+
+      .sidebar-menu li {
+        padding: 15px 20px;
+        transition: background 0.3s ease-in-out;
+      }
+
+      .sidebar-menu li:hover {
+        background-color: #00c9a7;
+      }
+
+      .sidebar-menu a {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 1rem;
+        transition: padding 0.3s ease-in-out;
+      }
+
+      .sidebar-menu a i {
+        font-size: 1.2rem;
+        transition: margin-right 0.3s ease-in-out;
+      }
+
+      .sidebar.collapsed .sidebar-menu a span {
+        display: none;
+      }
+
+      .sidebar.collapsed .sidebar-menu a i {
+        margin-right: 0;
+      }
+
+      /* Main Content Adjustment */
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+        transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .main-content.collapsed {
+        margin-left: 80px;
+      }
     </style>
   </head>
 
   <body>
-    <!-- Navbar -->
-    <div class="navbar navbar-expand-lg navbar-dark">
-      <span class="toggle-btn">
-        <i class="fa fa-bars"></i>
-      </span>
-      <a class="navbar-brand" href="#">
-        <img src="../static/images/delhi.png" alt="Delhi Logo" class="rounded-circle" width="40" height="40" />
-      </a>
-      <h3 class="text-light">Government of NCT of Delhi</h3>
+    
+
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="fas fa-user-shield"></i>
+          <!-- <span class="logo-text">Super Admin</span> -->
+        </div>
+        <div class="toggle-btn" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li><a href="#"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+        <li><a href="/superadmin/addHospital"><i class="fas fa-hospital"></i><span>Add Hospital</span></a></li>
+        <li><a href="/superadmin/checkHospitalStatus"><i class="fas fa-user-md"></i><span>Check Hospital
+              Status</span></a>
+        </li>
+        <li><a href="#"><i class="fas fa-pills"></i><span>Order Medicine</span></a></li>
+        <li><a href="/feedback.html"><i class="fas fa-comments"></i><span>Feedback</span></a></li>
+        <li><a href="/superadmin_logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+      </ul>
+      <script>
+        function toggleSidebar() {
+          const sidebar = document.querySelector(".sidebar");
+          const mainContent = document.querySelector(".main-content");
+          sidebar.classList.toggle("collapsed");
+          mainContent.classList.toggle("collapsed");
+        }
+      </script>
+
     </div>
 
-    <!-- Sidebar Navigation -->
-    <div class="sidebar_menu">
-      <div class="logo">
-        <!-- <a href="#">Nav Bar</a> -->
-      </div>
-      <ul>
-        <li>
-          <i class="fa-solid fa-gauge"></i>
-          <a href="#">Dashboard</a>
-        </li>
-        <li>
-          <i class="fa-solid fa-hospital"></i>
-          <a href="/superadmin/addHospital" id="add-hospital-link">Add Hospital</a>
-        </li>
-        <li>
-          <i class="fa-solid fa-stethoscope"></i>
-          <a href="/superadmin/checkHospitalStatus" id="check-hospital-status-link">Check Hospital Status</a>
-        </li>
-        <li>
-          <i class="fa-solid fa-pills"></i>
-          <a href="#" id="order-medicine-link">Order Medicine</a>
-        </li>
-        <!-- Commented Out Link -->
-        <!-- <li>
-                <i class="fa-solid fa-calendar-check"></i>
-                <a href="/admin/manage_appointment" id="appointment-link">Appointments</a>
-            </li> -->
-        <li>
-          <i class="fa-regular fa-comments"></i>
-          <a href="/feedback.html" id="feedback-link">Feedback</a>
-        </li>
-        <!-- <li>
-          <i class="fa-solid fa-heart"></i>
-          <a href="#" id="blood-bank-status-link">Blood Bank Status</a>
-        </li> -->
-        <li>
-          <i class="fa-solid fa-sign-out-alt"></i>
-          <a href="/superadmin_logout">Logout</a>
-        </li>
-      </ul>
-    </div>
     <!-- Main Content -->
+
+
     <div class="main-content">
       <h2>Super Admin Dashboard</h2>
       <div class="grid-container">
         <div class="card">
+          <i class="fa-solid fa-hospital"></i>
           <h3>Total Hospitals</h3>
           <p id="total-hospitals">{{no_hospital}}</p>
         </div>
         <div class="card">
+          <i class="fa-solid fa-user-md"></i>
           <h3>Total Doctors</h3>
           <p id="total-doctors">{{doctor}}</p>
         </div>
         <div class="card">
+          <i class="fa-solid fa-user-injured"></i>
           <h3>Total Active Patients</h3>
           <p id="total-active-patients">{{patient}}</p>
         </div>
         <div class="card">
-          <h3>Total Inventory Distributors</h3>
-          <p id="total-inventory-distributors">{{inventory}}</p>
-        </div>
-        <div class="card">
+          <i class="fa-solid fa-user-nurse"></i>
           <h3>Total Nurses</h3>
-          <br />
           <p id="total-nurses">{{total_nurse}}</p>
         </div>
         <div class="card">
+          <i class="fa-solid fa-briefcase-medical"></i>
           <h3>Total Admin Staff</h3>
           <p id="total-admin-staff">{{total_adminstaff}}</p>
         </div>
         <div class="card">
+          <i class="fa-solid fa-procedures"></i>
           <h3>Total Ventilator Beds</h3>
-          <p id="total-opd-beds">
-            {{available_ventilators}}/{{total_ventilators}}
-          </p>
+          <p id="total-opd-beds">{{available_ventilators}}/{{total_ventilators}}</p>
         </div>
         <div class="card">
+          <i class="fa-solid fa-bed"></i>
           <h3>Total ICU Beds</h3>
           <p id="total-icu-beds">{{available_icu_beds}}/{{total_icu_beds}}</p>
         </div>
         <div class="card">
+          <i class="fa-solid fa-warehouse"></i>
           <h3>Total General Wards</h3>
           <p id="total-general-wards">{{available_beds}}/{{total_beds}}</p>
         </div>
       </div>
     </div>
+
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
