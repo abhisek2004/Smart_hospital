@@ -191,13 +191,20 @@
                     <option value="12:00 - 13:00">14:00 - 15:00</option>
                     <option value="12:00 - 13:00">15:00 - 16:00</option>
                     <option value="12:00 - 13:00">16:00 - 17:00</option>
-                    <option value="12:00 - 13:00">17:00 - 18:00</option>
-                    <option value="12:00 - 13:00">18:00 - 19:00</option>
-                    <option value="12:00 - 13:00">19:00 - 20:00</option>
                     <!-- Other time slots... -->
                   </select>
                 </div>
-
+                <!-- Hospital Selection with Dynamic Doctor Update -->
+                <div class="form-group">
+                  <label for="hospital" class="form-label">Select Hospital</label>
+                  <select id="hospital" name="hospital" class="form-control" required>
+                    <option value="" disabled selected>Select Hospital</option>
+                    {% for hospital in hospitals %}
+                    <option value="{{ hospital }}">{{ hospital }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <br>
                 <!-- Speciality Selection -->
                 <div class="mb-3">
                   <label for="diseaseInput">Select Speciality:</label>
@@ -228,18 +235,6 @@
                     <!-- Add more specialties if needed -->
                   </select>
                 </div>
-
-                <!-- Hospital Selection with Dynamic Doctor Update -->
-                <div class="form-group">
-                  <label for="hospital" class="form-label">Select Hospital</label>
-                  <select id="hospital" name="hospital" class="form-control" required>
-                    <option value="" disabled selected>Select Hospital</option>
-                    {% for hospital in hospitals %}
-                    <option value="{{ hospital }}">{{ hospital }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-
                 <!-- Doctor Selection based on Hospital and Speciality -->
                 <div class="form-group">
                   <label for="doctor" class="form-label">Select Doctor</label>
@@ -250,7 +245,7 @@
                     {% endfor %}
                   </select>
                 </div>
-
+                <br>
                 <!-- Disease Description -->
                 <div class="mb-3">
                   <label for="diseaseDescription">Description Disease:</label>
