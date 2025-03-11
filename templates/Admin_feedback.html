@@ -9,11 +9,20 @@
             /* Import Google Font */
             @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
-            body {
+            /* body {
                 font-family: "Poppins", sans-serif;
                 margin: 0;
                 padding: 0;
                 background-color: #f9f9f9;
+            } */
+
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-image: url(../static/images/medicine.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
             }
 
             .navbar {
@@ -30,7 +39,7 @@
             }
 
             .dashboard-btn {
-                background-color: #ffffff;
+                background-color: #ffffffaa;
                 color: #00637f;
                 border: none;
                 padding: 10px 15px;
@@ -47,7 +56,7 @@
                 width: 90%;
                 max-width: 1200px;
                 margin: 30px auto;
-                background: #ffffff;
+                background: #ffffffa8;
                 padding: 20px;
                 border-radius: 10px;
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -197,14 +206,8 @@
                     alert("Please enter a resolution message.");
                     return;
                 }
-
-                // Simulating email sending process
                 alert(`Resolution message sent to ${email}:\n\n${resolutionMessage}`);
-
-                // Clear the resolution message box
                 row.querySelector(".resolution-message").value = "";
-
-                // Refresh the page after 1 second
                 setTimeout(() => {
                     location.reload();
                 }, 1000);
