@@ -6,7 +6,6 @@ from modules.superadmin import superadmin_blueprint
 from modules.doctor import doctor_blueprint
 from modules.db import contact_collection, feedback_collection
 from modules.user import user_blueprint
-import os
 
 app = Flask(__name__)
 app.register_blueprint(logout_bp)
@@ -90,9 +89,6 @@ def blog_single():
 def page_not_found(error):
     return render_template('404.html'), 404
 
-# if __name__ == '__main__':
-#     app.run(port=8000, debug=True)
-
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8000)))
+    app.run(port=8000, debug=True)
