@@ -7,7 +7,7 @@ import qrcode #type:ignore
 import io
 from flask_bcrypt import Bcrypt
 from modules.login_required import login_required
-from modules.db import contact_collection,admin_collection,doctors_collection,appointment_collection,hospital_data_collection,hospital_discharge_collection,inventory_collection,patients_collection,superadmin_collection,stock_collection
+from modules.db import contact_collection,admin_collection,doctors_collection,appointment_collection,hospital_data_collection,hospital_discharge_collection,inventory_collection,patients_collection,superadmin_collection,stock_collection,feedback_collection
 admin_blueprint = Blueprint('admin_blueprint',__name__)
 bcrypt = Bcrypt()
 
@@ -461,3 +461,12 @@ def submit_discharge():
         # return redirect('/admin')
     return render_template('Patient_discharge.html')
 
+@admin_blueprint.route('/admin_feedback',methods=['POST','GET'])
+def admin_feedback():
+    hospital_name = session.get('hospital_name')
+    feedbacks = feedback_collection.find()
+    return render_template('Admin_feedback.html',feedbacks=feedbacks)
+
+@admin_blueprint.route('/admin_appointment',methods=['POST','GET'])
+def appointment():
+    return render_template('add appointment.html')

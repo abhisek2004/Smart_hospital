@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hospital Admin Dashboard</title>
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../static/css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
 
     <style>
       body {
@@ -145,7 +147,6 @@
         }
       }
 
-
       /* Sidebar Styles */
       .sidebar {
         width: 250px;
@@ -239,8 +240,6 @@
   </head>
 
   <body>
-
-
     <div class="sidebar">
       <div class="sidebar-header">
         <div class="logo">
@@ -253,23 +252,53 @@
       </div>
 
       <ul class="sidebar-menu">
-        <li><a href="/admin/superadmin_hospital_status.html"><i class="fas fa-gear"></i><span>Setting</span></a></li>
-        <li><a href="/add_appointment"><i class="fas fa-user-plus"></i><span>Book Apt.</span></a></li>
-        <li><a href="/add_patient"><i class="fas fa-user-plus"></i><span>Add Patient</span></a></li>
-        <li><a href="/add_doc"><i class="fas fa-user-md"></i><span>Add Doctor</span></a></li>
-        <li><a href="/admin/discharge"><i class="fas fa-procedures"></i><span>Discharge</span></a></li>
-        <li><a href="/admin/manage_appointment"><i class="fas fa-calendar-check"></i><span>Apt. Data</span></a>
+        <li>
+          <a href="/admin/superadmin_hospital_status.html"
+            ><i class="fas fa-gear"></i><span>Setting</span></a
+          >
         </li>
-        <li><a href="/admin/ContactUs_Data.html"><i class="fas fa-comments"></i><span>Feedback</span></a></li>
-        <li><a href="/admin_logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+        <li>
+          <a href="/admin_appointment"
+            ><i class="fas fa-user-plus"></i><span>Book Apt.</span></a
+          >
+        </li>
+        <li>
+          <a href="/add_patient"
+            ><i class="fas fa-user-plus"></i><span>Add Patient</span></a
+          >
+        </li>
+        <li>
+          <a href="/add_doc"
+            ><i class="fas fa-user-md"></i><span>Add Doctor</span></a
+          >
+        </li>
+        <li>
+          <a href="/admin/discharge"
+            ><i class="fas fa-procedures"></i><span>Discharge</span></a
+          >
+        </li>
+        <li>
+          <a href="/admin/manage_appointment"
+            ><i class="fas fa-calendar-check"></i><span>Apt. Data</span></a
+          >
+        </li>
+        <li>
+          <a href="/admin_feedback"
+            ><i class="fas fa-comments"></i><span>Feedback</span></a
+          >
+        </li>
+        <li>
+          <a href="/admin_logout"
+            ><i class="fas fa-sign-out-alt"></i><span>Logout</span></a
+          >
+        </li>
       </ul>
-      <script>function toggleSidebar() {
+      <script>
+        function toggleSidebar() {
           document.querySelector(".sidebar").classList.toggle("collapsed");
         }
       </script>
-
     </div>
-
 
     <div class="main-content">
       <h2>Admin Dashboard {{hospital_name}}</h2>
@@ -369,21 +398,23 @@
         <div class="dashboard-card bg-danger">
           <i class="fas fa-lungs card-icon"></i>
           <div class="card-title">Ventilators</div>
-          <div class="card-value">{{vacent_ventilator}}/{{vantilator_total}}</div>
+          <div class="card-value">
+            {{vacent_ventilator}}/{{vantilator_total}}
+          </div>
         </div>
       </div>
 
       <!-- FontAwesome for icons -->
-      <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-
-
+      <script
+        src="https://kit.fontawesome.com/a076d05399.js"
+        crossorigin="anonymous"
+      ></script>
 
       <!-- Bar Chart -->
       <div class="chart-container">
         <canvas id="hospitalBarChart"></canvas>
       </div>
-      <br>
+      <br />
       <!-- Doughnut Charts Side by Side -->
       <div class="chart-row">
         <div class="chart-container">
@@ -443,5 +474,4 @@
         });
     </script>
   </body>
-
 </html>
