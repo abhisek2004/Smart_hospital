@@ -15,7 +15,7 @@
     <style>
       body {
         font-family: "Poppins", sans-serif;
-        background-image: url(../static/images/registration.jpg);
+        background-image: url(../static/images/Doctor_emergency_Scheduling.jpg);
         margin: 0;
         padding: 0;
         background-repeat: no-repeat;
@@ -142,7 +142,7 @@
       }
 
       .card {
-        background: linear-gradient(135deg, #1abc9c, #16a085);
+        background: linear-gradient(135deg, #eff4f3, #09d769);
         border-radius: 10px;
         padding: 20px;
         text-align: center;
@@ -287,7 +287,7 @@
   </head>
 
   <body>
-    
+
 
     <div class="sidebar">
       <div class="sidebar-header">
@@ -369,6 +369,35 @@
       </div>
     </div>
 
+    <div class="charts-container">
+      <canvas id="hospitalStatsChart"></canvas>
+      <canvas id="bedAvailabilityChart"></canvas>
+    </div>
+    <div class="charts-container">
+      <canvas id="patientTrendsChart"></canvas>
+      <canvas id="staffDistributionChart"></canvas>
+      <style>
+        .charts-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+          padding: 20px;
+          width: 100%;
+        }
+
+        .charts-container canvas {
+          max-width: 600px;
+          max-height: 350px;
+          background: rgba(255, 255, 255, 0.759);
+          border-radius: 10px;
+          padding: 10px;
+          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+      </style>
+
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -418,6 +447,91 @@
       // Load Dashboard Summary on Page Load
       loadDashboardSummary();
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // 📌 Data from Flask/Jinja
+      const totalHospitals = {{ no_hospital }};
+      const totalDoctors = {{ doctor }};
+      const totalPatients = {{ patient }};
+      const totalNurses = {{ total_nurse }};
+      const totalAdminStaff = {{ total_adminstaff }};
+
+      const availableICUBeds = {{ available_icu_beds }};
+      const totalICUBeds = {{ total_icu_beds }};
+      const availableVentilators = {{ available_ventilators }};
+      const totalVentilators = {{ total_ventilators }};
+      const availableGeneralBeds = {{ available_beds }};
+      const totalGeneralBeds = {{ total_beds }};
+
+      // 🔹 1️⃣ Bar Chart: Hospital Statistics
+      new Chart(document.getElementById('hospitalStatsChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['Hospitals', 'Doctors', 'Patients', 'Nurses', 'Admin Staff'],
+          datasets: [{
+            label: 'Count',
+            data: [totalHospitals, totalDoctors, totalPatients, totalNurses, totalAdminStaff],
+            backgroundColor: ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#E91E63'],
+            borderColor: '#333',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+
+      // 🔹 2️⃣ Doughnut Chart: Bed Availability
+      new Chart(document.getElementById('bedAvailabilityChart').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: ['ICU Beds Available', 'ICU Beds Used', 'Ventilators Available', 'Ventilators Used', 'General Beds Available', 'General Beds Used'],
+          datasets: [{
+            label: 'Beds',
+            data: [
+              availableICUBeds, totalICUBeds - availableICUBeds,
+              availableVentilators, totalVentilators - availableVentilators,
+              availableGeneralBeds, totalGeneralBeds - availableGeneralBeds
+            ],
+            backgroundColor: ['#4CAF50', '#F44336', '#03A9F4', '#FFC107', '#8BC34A', '#9E9E9E']
+          }]
+        },
+        options: { responsive: true }
+      });
+
+      // 🔹 3️⃣ Line Chart: Active Patient Trends
+      new Chart(document.getElementById('patientTrendsChart').getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: "Active Patients",
+            data: [totalPatients, totalPatients - 5, totalPatients - 10, totalPatients - 15, totalPatients - 10, totalPatients - 5, totalPatients],
+            borderColor: "#dc3545",
+            backgroundColor: "rgba(220, 53, 69, 0.2)",
+            borderWidth: 2,
+            fill: true
+          }]
+        },
+        options: { responsive: true }
+      });
+
+      // 🔹 4️⃣ Pie Chart: Staff Distribution
+      new Chart(document.getElementById('staffDistributionChart').getContext('2d'), {
+        type: 'pie',
+        data: {
+          labels: ['Doctors', 'Nurses', 'Admin Staff'],
+          datasets: [{
+            data: [totalDoctors, totalNurses, totalAdminStaff],
+            backgroundColor: ['#17a2b8', '#ffc107', '#6610f2']
+          }]
+        },
+        options: { responsive: true }
+      });
+    </script>
+
   </body>
 
 </html>
