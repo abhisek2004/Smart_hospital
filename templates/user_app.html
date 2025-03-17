@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <style>
       body {
         font-family: 'Poppins', sans-serif;
@@ -130,12 +133,102 @@
       .download-btn:hover {
         background: #006bb3;
       }
+
+
+      /* Sidebar Styles */
+      .sidebar {
+        width: 250px;
+        height: 100vh;
+        background: #004080;
+        position: fixed;
+        left: 0;
+        top: 0;
+        padding-top: 20px;
+        transition: 0.3s ease-in-out;
+      }
+
+      .sidebar.collapsed {
+        width: 80px;
+      }
+
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        color: white;
+      }
+
+      .sidebar .logo i {
+        font-size: 24px;
+      }
+
+      .toggle-btn {
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .sidebar-menu {
+        list-style: none;
+        padding: 0;
+      }
+
+      .sidebar-menu li {
+        margin: 10px 0;
+      }
+
+      .sidebar-menu a {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        color: white;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .sidebar-menu a:hover {
+        background: #006bb3;
+      }
+
+      .sidebar-menu i {
+        font-size: 18px;
+        margin-right: 10px;
+      }
+
+      /* Collapsed Sidebar */
+      .sidebar.collapsed .sidebar-menu span {
+        display: none;
+      }
+
+      .sidebar.collapsed .sidebar-menu a {
+        justify-content: center;
+      }
+
+      .sidebar.collapsed .toggle-btn {
+        text-align: center;
+        width: 100%;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 80px;
+        }
+
+        .sidebar-menu span {
+          display: none;
+        }
+
+        .sidebar-menu a {
+          justify-content: center;
+        }
+      }
     </style>
   </head>
 
   <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
         <h3 class="text-light">Government of NCT of Delhi</h3>
         <ul class="navbar-nav ms-auto">
@@ -150,7 +243,37 @@
           <li class="nav-item"><a class="nav-link text-light" href="/user_logout">Logout</a></li>
         </ul>
       </div>
-    </nav>
+    </nav> -->
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <div class="toggle-btn" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li><a href="/"><i class="fas fa-home"></i><span>Home</span></a></li>
+        <li><a href="/appointment"><i class="fas fa-calendar-check"></i><span>Appointment</span></a></li>
+        <li><a href="/bed_status"><i class="fas fa-procedures"></i><span>Bed Availability</span></a></li>
+        <li><a href="#" data-bs-toggle="modal" data-bs-target="#messagesModal">
+            <i class="fas fa-bell"></i><span>Notifications</span>
+          </a>
+        </li>
+        <li><a href="/user_logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+      </ul>
+      <script>
+        function toggleSidebar() {
+          document.querySelector(".sidebar").classList.toggle("collapsed");
+        }
+      </script>
+
+    </div>
+
 
     <!-- Main Content -->
     <div class="main-content">
