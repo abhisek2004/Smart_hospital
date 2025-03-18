@@ -223,6 +223,41 @@
           justify-content: center;
         }
       }
+
+
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        max-width: 900px;
+        margin: auto;
+      }
+
+      .appointment-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        width: 45%;
+        /* Two cards in a row */
+        min-width: 380px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        border-top: 6px solid #004080;
+        border-bottom: 6px solid #004080;
+      }
+
+      @media (max-width: 768px) {
+        .appointment-card {
+          width: 100%;
+          /* Full width on smaller screens */
+        }
+      }
     </style>
   </head>
 
@@ -257,7 +292,7 @@
       </div>
 
       <ul class="sidebar-menu">
-        <li><a href="/"><i class="fas fa-home"></i><span>Home</span></a></li>
+        <li><a href="#"><i class="fas fa-home"></i><span>Home</span></a></li>
         <li><a href="/appointment"><i class="fas fa-calendar-check"></i><span>Appointment</span></a></li>
         <li><a href="/bed_status"><i class="fas fa-procedures"></i><span>Bed Availability</span></a></li>
         <li><a href="#" data-bs-toggle="modal" data-bs-target="#messagesModal">
