@@ -470,3 +470,67 @@ def admin_feedback():
 @admin_blueprint.route('/admin_appointment',methods=['POST','GET'])
 def appointment():
     return render_template('add appointment.html')
+
+@admin_blueprint.route('/admin_settings',methods=['POST','GET'])
+def admin_settings():
+    hospital_name = session.get('hospital_name')
+    print(hospital_name)
+    data = hospital_data_collection.find_one({'hospital_name':hospital_name})
+
+    if request.method == 'POST':
+        name = request.form['hospitalName']
+        address = request.form['address']
+        contact_number = request.form['contact_number']
+        emergency_contact_number = request.form['emergency_contact_number']
+        email = request.form['email']
+        website = request.form['website']
+        no_beds = int(request.form['no_beds'])
+        general_beds_occupied = int(request.form['general_beds_occupied'])
+        icu_beds = request.form['icu_beds']
+        icu_beds_occupied = request.form['icu_beds_occupied']
+        ventilators = request.form['ventilators']
+        ventilators_occupied = request.form['ventilators_occupied']
+        emergency_department = request.form['emergency_department']
+        specialization = request.form['specialization']
+        operating_hours = request.form['operating_hours']
+        visiting_hours = request.form['visiting_hours']
+        pharmacy_on_site = request.form['pharmacy_on_site']
+        total_doctor = request.form['total_doctor']
+        total_nurses = request.form['total_nurses']
+        administrative_staff = request.form['administrative_staff']
+        total_inventory_distributors = request.form['total_inventory_distributors']
+        ambulance_services = request.form['ambulance_services']
+        blood_bank = request.form['blood_bank']
+        diagnostic_services = request.form['diagnostic_services']
+
+        hospital_data_collection.update_one(
+            {'hospital_name': hospital_name},
+            {'$set': {'hospital_name': name,
+                      'hospital_id': ID,
+                      'address': address,
+                      'contact_number': contact_number,
+                      'emergency_contact_number': emergency_contact_number,
+                      'email': email,
+                      'website': website,
+                      'number_of_beds': no_beds,
+                      'general_beds_occupied': general_beds_occupied,
+                      'icu_beds': icu_beds,
+                      'icu_beds_occupied': icu_beds_occupied,
+                      'ventilators': ventilators,
+                      'ventilators_occupied': ventilators_occupied,
+                      'emergency_department': emergency_department,
+                      'specialization': specialization,
+                      'operating_hours': operating_hours,
+                      'visiting_hours': visiting_hours,
+                      'pharmacy_on_site': pharmacy_on_site,
+                      'total_doctor': total_doctor,
+                      'total_nurses': total_nurses,
+                      'administrative_staff': administrative_staff,
+                      'total_inventory_distributors': total_inventory_distributors,
+                      'ambulance_services': ambulance_services,
+                      'blood_bank': blood_bank,
+                      'diagnostic_services': diagnostic_services
+                      }
+             }
+        )
+    return render_template('superadmin_hospital_status.html',data=data)
