@@ -465,7 +465,7 @@ def submit_discharge():
 def admin_feedback():
     hospital_name = session.get('hospital_name')
     feedbacks = feedback_collection.find()
-    return render_template('Admin_feedback.html',feedbacks=feedbacks)
+    return render_template('feedback.html')
 
 @admin_blueprint.route('/admin_appointment',methods=['POST','GET'])
 def appointment():
