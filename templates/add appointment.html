@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,17 +20,17 @@
       .container {
         max-width: 500px;
         margin: 50px auto;
-        background-color: rgba(
-          255,
-          255,
-          255,
-          0.85
-        ); /* Semi-transparent background */
+        background-color: rgba(255,
+            255,
+            255,
+            0.85);
+        /* Semi-transparent background */
         padding: 30px;
         border-radius: 10px;
         background-color: #ffffff90;
         box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px); /* Blurs background behind the container */
+        backdrop-filter: blur(10px);
+        /* Blurs background behind the container */
       }
 
       h2 {
@@ -66,7 +67,8 @@
       input[type="email"]:focus,
       input[type="date"]:focus,
       select:focus {
-        border-color: #00637f; /* Blue border on focus */
+        border-color: #00637f;
+        /* Blue border on focus */
         outline: none;
       }
 
@@ -86,13 +88,49 @@
 
       input[type="submit"]:hover,
       .btn-appointment:hover {
-        background-color: #0056b3; /* Darker blue on hover */
+        background-color: #0056b3;
+        /* Darker blue on hover */
       }
 
       .center-button-container {
         display: flex;
         justify-content: center;
         margin-top: 20px;
+      }
+    </style>
+    <style>
+      /* Container for Buttons */
+      .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      /* Style for Submit Button */
+      .btn-submit {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      /* Style for Admin Dashboard Button */
+      .btn-admin {
+        text-decoration: none;
+        background-color: #00637f;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        display: inline-block;
+      }
+
+      .btn-admin:hover {
+        background-color: #218838;
       }
     </style>
   </head>
@@ -103,55 +141,25 @@
       <form method="post" action="/admin_appointment">
         <div class="form-group">
           <label for="name">Full Name:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            name="name"
-            required
-            pattern="^[A-Za-z]+(\s[A-Za-z]+)*$"
-            title="Please enter a valid name. Only letters and spaces are allowed, and the name cannot consist of only spaces."
-          />
+          <input type="text" class="form-control" id="name" name="name" required pattern="^[A-Za-z]+(\s[A-Za-z]+)*$"
+            title="Please enter a valid name. Only letters and spaces are allowed, and the name cannot consist of only spaces." />
         </div>
         <div class="form-group">
           <label for="phone">Phone Number:</label>
-          <input
-            type="tel"
-            class="form-control"
-            id="phone"
-            name="phone"
-            maxlength="13"
-            pattern="(\+91[-\s]?)?[6-9]{1}[0-9]{9}"
-            required
-          />
+          <input type="tel" class="form-control" id="phone" name="phone" maxlength="13"
+            pattern="(\+91[-\s]?)?[6-9]{1}[0-9]{9}" required />
         </div>
         <div class="form-group">
           <label for="emailInput">Email Address</label>
-          <input
-            type="text"
-            id="emailInput"
-            placeholder="Enter Email Address"
-            name="email"
-          />
+          <input type="text" id="emailInput" placeholder="Enter Email Address" name="email" />
         </div>
         <div class="form-group">
           <label for="addressInput">Address</label>
-          <input
-            type="text"
-            id="addressInput"
-            placeholder="Enter Your Address"
-            name="Address"
-          />
+          <input type="text" id="addressInput" placeholder="Enter Your Address" name="Address" />
         </div>
         <div class="form-group">
           <label for="dateInput">Appointment Date</label>
-          <input
-            type="date"
-            id="dateInput"
-            name="dat"
-            min="{{today}}"
-            max="{{mx_date}}"
-          />
+          <input type="date" id="dateInput" name="dat" min="{{today}}" max="{{mx_date}}" />
         </div>
         <div class="form-group">
           <label for="hospital">Select Hospital</label>
@@ -169,18 +177,19 @@
         </div>
         <div class="form-group">
           <label for="diseaseDescription">Disease Description</label>
-          <input
-            type="text"
-            placeholder="Enter Disease Description"
-            name="diseaseDescription"
-          />
+          <input type="text" placeholder="Enter Disease Description" name="diseaseDescription" />
         </div>
         <div class="center-button-container">
           <button class="btn-appointment" id="appointment" type="submit">
             Book Appointment
           </button>
         </div>
+        <!-- Submit & Return Buttons -->
+        <div class="button-container">
+          <a href="/admin" class="btn-admin">Return to Admin Dashboard</a>
+        </div>
       </form>
     </div>
   </body>
+
 </html>
