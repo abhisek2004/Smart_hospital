@@ -41,7 +41,6 @@
       /* Individual Appointment Card */
       .appointment-card {
         background: rgba(0, 0, 0, 0.8);
-        /* Darker background for better readability */
         border-radius: 10px;
         padding: 20px;
         width: 320px;
@@ -78,6 +77,68 @@
         color: #ffeb3b;
       }
 
+      /* Status Badge */
+      .status {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-top: 10px;
+      }
+
+      .approved {
+        background-color: #28a745;
+        color: white;
+      }
+
+      .rejected {
+        background-color: #dc3545;
+        color: white;
+      }
+
+      .pending {
+        background-color: #ffc107;
+        color: black;
+      }
+
+      /* Buttons for Admin Actions */
+      .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+
+      .btn-approve,
+      .btn-reject {
+        padding: 8px 12px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+
+      .btn-approve {
+        background-color: #28a745;
+        color: white;
+      }
+
+      .btn-reject {
+        background-color: #dc3545;
+        color: white;
+      }
+
+      .btn-approve:hover {
+        background-color: #218838;
+      }
+
+      .btn-reject:hover {
+        background-color: #c82333;
+      }
+
       /* Responsive Design */
       @media (max-width: 768px) {
         .appointment-card {
@@ -98,25 +159,13 @@
           font-size: 1.4rem;
         }
       }
-    </style>
-    <style>
+
       /* Container for Buttons */
       .button-container {
         display: flex;
         justify-content: center;
         gap: 15px;
         margin-top: 20px;
-      }
-
-      /* Style for Submit Button */
-      .btn-submit {
-        background-color: #218838;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        font-size: 16px;
       }
 
       /* Style for Admin Dashboard Button */
@@ -150,12 +199,49 @@
         <p><span class="highlight">Department:</span> {{ contact.speciality }}</p>
         <p><span class="highlight">Description:</span> {{ contact.disease_description }}</p>
         <p><span class="highlight">Queue Number:</span> {{ contact.queue_number }}</p>
+
+        <!-- Appointment Status -->
+        <p>Status: <span
+            class="status {% if contact.status == 'Approved' %}approved{% elif contact.status == 'Rejected' %}rejected{% else %}pending{% endif %}"
+            id="status-{{ contact.id }}">{{ contact.status }}</span></p>
+
+        <!-- Approve / Reject Buttons -->
+        <div class="action-buttons">
+          <button class="btn-approve" onclick="updateStatus('{{ contact.id }}', 'Approved')">Approve</button>
+          <button class="btn-reject" onclick="updateStatus('{{ contact.id }}', 'Rejected')">Reject</button>
+        </div>
       </div>
       {% endfor %}
-      <div class="button-container">
-        <a href="/admin" class="btn-admin">Return to Admin Dashboard</a>
-      </div>
     </div>
+
+    <div class="button-container">
+      <a href="/admin" class="btn-admin">Return to Admin Dashboard</a>
+    </div>
+
+    <!-- JavaScript for Updating Status -->
+    <script>
+      function updateStatus(appointmentId, status) {
+        // Make an API call to update status in the backend
+        fetch(`/admin/update-status/${appointmentId}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: status })
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              // Update the status in the UI
+              let statusElement = document.getElementById(`status-${appointmentId}`);
+              statusElement.textContent = status;
+              statusElement.className = `status ${status.toLowerCase()}`;
+            } else {
+              alert("Failed to update status");
+            }
+          })
+          .catch(error => console.error("Error updating status:", error));
+      }
+    </script>
+
   </body>
 
 </html>
