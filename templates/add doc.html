@@ -12,6 +12,7 @@
                 margin: 0;
                 padding: 0;
             }
+
             body {
                 font-family: 'Roboto', sans-serif;
                 background-image: url('../static/images/Pulmonology.jpeg');
@@ -69,7 +70,42 @@
             }
 
             input[type="submit"]:hover {
-                background-color: #0056b3;
+                background-color: #218838;
+            }
+        </style>
+        <style>
+            /* Container for Buttons */
+            .button-container {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 20px;
+            }
+
+            /* Style for Submit Button */
+            .btn-submit {
+                background-color: #007bff;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            /* Style for Admin Dashboard Button */
+            .btn-admin {
+                text-decoration: none;
+                background-color: #00637f;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                font-size: 16px;
+                display: inline-block;
+            }
+
+            .btn-admin:hover {
+                background-color: #218838;
             }
         </style>
     </head>
@@ -131,6 +167,10 @@
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Add Doctor">
+                </div>
+                <!-- Submit & Return Buttons -->
+                <div class="button-container">
+                    <a href="/admin" class="btn-admin">Return to Admin Dashboard</a>
                 </div>
             </form>
         </div>
