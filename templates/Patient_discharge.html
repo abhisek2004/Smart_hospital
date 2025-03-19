@@ -129,6 +129,41 @@
         border: 1px solid rgba(255, 255, 255, 0.4);
       }
     </style>
+    <style>
+      /* Container for Buttons */
+      .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      /* Style for Submit Button */
+      .btn-submit {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      /* Style for Admin Dashboard Button */
+      .btn-admin {
+        text-decoration: none;
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        display: inline-block;
+      }
+
+      .btn-admin:hover {
+        background-color: #218838;
+      }
+    </style>
   </head>
 
   <body>
@@ -193,7 +228,11 @@
       <input type="text" id="contact_info" name="contact_info" required />
 
       <input type="submit" value="Submit" />
+      <div class="button-container">
+        <a href="/admin" class="btn-admin">Return to Admin Dashboard</a>
+      </div>
     </form>
+
     <script>
       function submitFormAndRedirect() {
         var form = document.getElementById("discharge");
