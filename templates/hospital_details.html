@@ -211,9 +211,73 @@
       </div>
 
       <div class="form-group">
-        <label for="specialization">Enter Specialization:</label>
-        <input type="text" id="specialization" name="specialization" placeholder="Enter Specialization" required />
+        <label>Select Specialization(s):</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="specialization[]" value="Cardiology"> Cardiology</label>
+          <label><input type="checkbox" name="specialization[]" value="Neurology"> Neurology</label>
+          <label><input type="checkbox" name="specialization[]" value="Orthopedics"> Orthopedics</label>
+          <label><input type="checkbox" name="specialization[]" value="Pediatrics"> Pediatrics</label>
+          <label><input type="checkbox" name="specialization[]" value="Dermatology"> Dermatology</label>
+          <label><input type="checkbox" name="specialization[]" value="General Medicine"> General Medicine</label>
+          <label><input type="checkbox" name="specialization[]" value="ENT"> ENT</label>
+          <label><input type="checkbox" name="specialization[]" value="Gastroenterology"> Gastroenterology</label>
+          <label><input type="checkbox" name="specialization[]" value="Endocrinology"> Endocrinology</label>
+          <label><input type="checkbox" name="specialization[]" value="Oncology"> Oncology</label>
+          <label><input type="checkbox" name="specialization[]" value="Ophthalmology"> Ophthalmology</label>
+          <label><input type="checkbox" name="specialization[]" value="Pulmonology"> Pulmonology</label>
+          <label><input type="checkbox" name="specialization[]" value="Urology"> Urology</label>
+          <label><input type="checkbox" name="specialization[]" value="Nephrology"> Nephrology</label>
+          <label><input type="checkbox" name="specialization[]" value="Radiology"> Radiology</label>
+          <label><input type="checkbox" name="specialization[]" value="Pathology"> Pathology</label>
+          <label><input type="checkbox" name="specialization[]" value="Surgery"> Surgery</label>
+          <label><input type="checkbox" name="specialization[]" value="Plastic Surgery"> Plastic Surgery</label>
+          <label><input type="checkbox" name="specialization[]" value="Emergency Medicine"> Emergency Medicine</label>
+          <label><input type="checkbox" name="specialization[]" value="Infectious Diseases"> Infectious Diseases</label>
+          <label><input type="checkbox" name="specialization[]" value="Hematology"> Hematology</label>
+          <label><input type="checkbox" name="specialization[]" value="Rheumatology"> Rheumatology</label>
+          <label><input type="checkbox" name="specialization[]" value="Geriatrics"> Geriatrics</label>
+          <label><input type="checkbox" name="specialization[]" value="Anesthesiology"> Anesthesiology</label>
+          <label><input type="checkbox" name="specialization[]" value="Obstetrics and Gynecology"> Obstetrics and
+            Gynecology</label>
+          <label><input type="checkbox" name="specialization[]" value="Allergy and Immunology"> Allergy and
+            Immunology</label>
+          <label><input type="checkbox" name="specialization[]" value="Physical Medicine and Rehabilitation"> Physical
+            Medicine and Rehabilitation</label>
+          <label><input type="checkbox" name="specialization[]" value="Sports Medicine"> Sports Medicine</label>
+          <label><input type="checkbox" name="specialization[]" value="Vascular Surgery"> Vascular Surgery</label>
+          <label><input type="checkbox" name="specialization[]" value="Thoracic Surgery"> Thoracic Surgery</label>
+          <label><input type="checkbox" name="specialization[]" value="Nuclear Medicine"> Nuclear Medicine</label>
+          <label><input type="checkbox" name="specialization[]" value="Clinical Genetics"> Clinical Genetics</label>
+        </div>
+        <style>
+          .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+          }
+
+          .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: #f5f5f5;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 200px;
+            /* Adjust width as needed */
+          }
+
+          .checkbox-group input {
+            accent-color: #007b7b;
+            /* Custom checkbox color */
+          }
+        </style>
       </div>
+
+
+
+
 
       <!-- Operational Details -->
       <div class="form-group">
