@@ -1,4 +1,4 @@
-from flask import Blueprint,request,session,redirect,render_template,url_for,flash,send_file
+from flask import Blueprint, jsonify,request,session,redirect,render_template,url_for,flash,send_file
 
 from reportlab.lib.pagesizes import A4 # type: ignore
 from reportlab.lib.styles import getSampleStyleSheet # type: ignore
@@ -479,6 +479,7 @@ def admin_settings():
 
     if request.method == 'POST':
         name = request.form['hospitalName']
+        ID = data['hospital_id']
         address = request.form['address']
         contact_number = request.form['contact_number']
         emergency_contact_number = request.form['emergency_contact_number']
@@ -534,3 +535,69 @@ def admin_settings():
              }
         )
     return render_template('superadmin_hospital_status.html',data=data)
+
+
+@admin_blueprint.route('/update_hospital', methods=['POST'])
+def update_hospital():
+    try:
+        hospital_id = request.form['hospitalID']  # Assuming this is the unique identifier
+        updated_data = {
+            "hospital_name": request.form['hospitalName'],
+            "address": request.form['address'],
+            "contact_number": request.form['contact_number'],
+            "emergency_contact_number": request.form['emergency_contact_number'],
+            "email_address": request.form['email'],
+            "website_url": request.form['website'],
+            "number_of_general_beds": int(request.form['no_beds']),
+            "occupied_general": int(request.form['general_beds_occupied']),
+            "number_of_icu_beds": int(request.form['icu_beds']),
+            "occupied_icu": int(request.form['icu_beds_occupied']),
+            "number_of_ventilators": int(request.form['ventilators']),
+            "occupied_ventilator": int(request.form['ventilators_occupied']),
+            "emergency_department": request.form['emergency_department'],
+            "specialization": request.form['specialization'],
+            "hospital_operating_hours": request.form['operating_hours'],
+            "visiting_hours": request.form['visiting_hours'],
+            "pharmacy_on_site": request.form['pharmacy_on_site'],
+            "total_doctors": int(request.form['total_doctors']),
+            "total_number_of_nurses": int(request.form['total_nurses']),
+            "administrative_staff_count": int(request.form['administrative_staff']),
+            "inventory_distributors": int(request.form['total_inventory_distributors']),
+            "ambulance_services": request.form['ambulance_services'],
+            "blood_bank": request.form['blood_bank'],
+            "diagnostic_services": request.form['diagnostic_services'],
+        }
+
+        # Updating the database
+        hospital_data_collection.update_one({"hospital_id": hospital_id}, {"$set": updated_data})
+        return redirect(url_for('hospital_details', hospital_id=hospital_id))
+
+    except KeyError as e:
+        return f"KeyError: Missing field {e}", 400
+    except Exception as e:
+        return f"Error: {e}", 500@admin_blueprint.route('/update_hospital_data', methods=['POST'])
+def update_hospital_data():
+    try:
+        data = request.get_json()
+
+        # Extract hospital ID or unique identifier (e.g., hospital_id)
+        hospital_id = data.get('hospital_id')
+        if not hospital_id:
+            return jsonify({"error": "Hospital ID is required"}), 400
+
+        # Remove the hospital_id from data before updating
+        data.pop('hospital_id', None)
+
+        # Update MongoDB
+        result = hospital_data_collection.update_one(
+            {"hospital_id": hospital_id},
+            {"$set": data}
+        )
+
+        if result.modified_count > 0:
+            return jsonify({"success": "Hospital data updated successfully!"})
+        else:
+            return jsonify({"error": "No data was updated. Please check the input values."}), 400
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

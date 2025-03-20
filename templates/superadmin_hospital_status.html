@@ -229,98 +229,92 @@
         <p><strong>ID:</strong> {{ data.hospital_id }}</p>
 
         <label>Hospital Name:</label>
-        <input type="text" class="editable" data-key="hospitalName" value="{{ data.hospital_name }}">
+        <input type="text" class="editable" name="hospitalName" value="{{ data.hospital_name }}">
 
         <label>Address:</label>
-        <input type="text" class="editable" data-key="address"
+        <input type="text" class="editable" name="address"
           value="{{ data.address_line1 }}, {{ data.city }}, {{ data.state }} - {{ data.postal_code }}">
 
         <label>Contact Number:</label>
-        <input type="text" class="editable" data-key="contact_number" value="{{ data.contact_number }}">
+        <input type="text" class="editable" name="contact_number" value="{{ data.contact_number }}">
 
         <label>Emergency Contact:</label>
-        <input type="text" class="editable" data-key="emergency_contact_number"
-          value="{{ data.emergency_contact_number }}">
+        <input type="text" class="editable" name="emergency_contact_number" value="{{ data.emergency_contact_number }}">
 
         <label>Email:</label>
-        <input type="email" class="editable" data-key="email" value="{{ data.email_address }}">
+        <input type="email" class="editable" name="email" value="{{ data.email_address }}">
 
         <label>Website:</label>
-        <input type="url" class="editable" data-key="website" value="{{ data.website_url }}">
+        <input type="url" class="editable" name="website" value="{{ data.website_url }}">
 
         <label>Number of Beds:</label>
-        <input type="number" class="editable" data-key="no_beds" value="{{ data.number_of_general_beds }}">
+        <input type="number" class="editable" name="no_beds" value="{{ data.number_of_general_beds }}">
 
         <label>General Beds Occupied:</label>
-        <input type="number" class="editable" data-key="general_beds_occupied" value="{{ data.occupied_general }}">
+        <input type="number" class="editable" name="general_beds_occupied" value="{{ data.occupied_general }}">
 
         <label>ICU Beds:</label>
-        <input type="number" class="editable" data-key="icu_beds" value="{{ data.number_of_icu_beds }}">
+        <input type="number" class="editable" name="icu_beds" value="{{ data.number_of_icu_beds }}">
 
         <label>ICU Beds Occupied:</label>
-        <input type="number" class="editable" data-key="icu_beds_occupied" value="{{ data.occupied_icu }}">
+        <input type="number" class="editable" name="icu_beds_occupied" value="{{ data.occupied_icu }}">
 
         <label>Ventilators:</label>
-        <input type="number" class="editable" data-key="ventilators" value="{{ data.number_of_ventilators }}">
+        <input type="number" class="editable" name="ventilators" value="{{ data.number_of_ventilators }}">
 
         <label>Ventilator Beds Occupied:</label>
-        <input type="number" class="editable" data-key="ventilators_occupied" value="{{ data.occupied_ventilator }}">
+        <input type="number" class="editable" name="ventilators_occupied" value="{{ data.occupied_ventilator }}">
 
         <label>Emergency Department:</label>
-        <select class="editable" data-key="emergency_department">
+        <select class="editable" name="emergency_department">
           <option value="Yes" {% if data.emergency_department == 'Yes' %}selected{% endif %}>Yes</option>
           <option value="No" {% if data.emergency_department == 'No' %}selected{% endif %}>No</option>
         </select>
 
         <label>Specialization:</label>
-        <select class="editable" data-key="specialization">
-          {% for department in data.departments %}
-          <option value="{{ department }}" {% if department == data.specialization %}selected{% endif %}>{{ department }}</option>
-          {% endfor %}
-        </select>
+        <input type="text" class="editable" name="specialization" value="{{ data.specialization }}">
 
         <label>Operating Hours:</label>
-        <input type="text" class="editable" data-key="operating_hours" value="{{ data.hospital_operating_hours }}">
+        <input type="text" class="editable" name="operating_hours" value="{{ data.hospital_operating_hours }}">
 
         <label>Visiting Hours:</label>
-        <input type="text" class="editable" data-key="visiting_hours" value="{{ data.visiting_hours }}">
+        <input type="text" class="editable" name="visiting_hours" value="{{ data.visiting_hours }}">
 
         <label>Pharmacy On-site:</label>
-        <select class="editable" data-key="pharmacy_on_site">
+        <select class="editable" name="pharmacy_on_site">
           <option value="Yes" {% if data.pharmacy_on_site == 'Yes' %}selected{% endif %}>Yes</option>
           <option value="No" {% if data.pharmacy_on_site == 'No' %}selected{% endif %}>No</option>
         </select>
 
         <label>Total Doctors:</label>
-        <input type="number" class="editable" data-key="total_doctors" value="{{ no_doc }}">
+        <input type="number" class="editable" name="total_doctors" value="{{ no_doc }}">
 
         <label>Total Nurses:</label>
-        <input type="number" class="editable" data-key="total_nurses" value="{{ data.total_number_of_nurses }}">
+        <input type="number" class="editable" name="total_nurses" value="{{ data.total_number_of_nurses }}">
 
 
 
         <label>Administrative Staff:</label>
-        <input type="number" class="editable" data-key="administrative_staff"
-          value="{{ data.administrative_staff_count }}">
+        <input type="number" class="editable" name="administrative_staff" value="{{ data.administrative_staff_count }}">
 
         <label>Total Inventory Distributors:</label>
-        <input type="number" class="editable" data-key="total_inventory_distributors"
+        <input type="number" class="editable" name="total_inventory_distributors"
           value="{{ data.inventory_distributors }}">
 
         <label>Ambulance Services:</label>
-        <select class="editable" data-key="ambulance_services">
+        <select class="editable" name="ambulance_services">
           <option value="Yes" {% if data.ambulance_services == 'Yes' %}selected{% endif %}>Yes</option>
           <option value="No" {% if data.ambulance_services == 'No' %}selected{% endif %}>No</option>
         </select>
 
         <label>Blood Bank:</label>
-        <select class="editable" data-key="blood_bank">
+        <select class="editable" name="blood_bank">
           <option value="Yes" {% if data.blood_bank == 'Yes' %}selected{% endif %}>Yes</option>
           <option value="No" {% if data.blood_bank == 'No' %}selected{% endif %}>No</option>
         </select>
 
         <label>Diagnostic Services:</label>
-        <input type="text" class="editable" data-key="diagnostic_services" value="{{ data.diagnostic_services }}">
+        <input type="text" class="editable" name="diagnostic_services" value="{{ data.diagnostic_services }}">
 
         <p class="status-message"></p>
       </div>
