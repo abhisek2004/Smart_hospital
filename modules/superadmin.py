@@ -1,5 +1,5 @@
 from flask import request,session,redirect,flash,render_template,Blueprint
-from modules.db import superadmin_collection,hospital_data_collection,doctors_collection,patients_collection,admin_collection,my_email,code
+from modules.db import superadmin_collection,hospital_data_collection,doctors_collection,patients_collection,admin_collection,my_email,code,feedback_collection
 from datetime import datetime
 from modules.login_required import login_required
 from flask_bcrypt import Bcrypt
@@ -194,3 +194,8 @@ def check_hospital():
     hospitals = hospital_data_collection.find()
     hospital_names = [hospital['hospital_name'] for hospital in hospitals]
     return render_template('super_admin_check_hospital.html', hospitals=hospital_names)
+
+@superadmin_blueprint.route('/superadmin/feedback', methods=['GET', 'POST'])
+@login_required('superadmin')
+def feedback():
+    return render_template('Admin_feedback.html',feedback=feedback)
