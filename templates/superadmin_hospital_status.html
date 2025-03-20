@@ -272,7 +272,11 @@
         </select>
 
         <label>Specialization:</label>
-        <input type="text" class="editable" data-key="specialization" value="{{ data.specialization }}">
+        <select class="editable" data-key="specialization">
+          {% for department in data.departments %}
+          <option value="{{ department }}" {% if department == data.specialization %}selected{% endif %}>{{ department }}</option>
+          {% endfor %}
+        </select>
 
         <label>Operating Hours:</label>
         <input type="text" class="editable" data-key="operating_hours" value="{{ data.hospital_operating_hours }}">

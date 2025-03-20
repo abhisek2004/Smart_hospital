@@ -240,7 +240,7 @@ def add_details():
         no_ventilator = int(request.form['numberOfVentilators'])
         occupied_ventilator = int(request.form['ventilator_occupied'])
         emergency_dept = request.form['emergencyDepartment']
-        spetialisation = request.form['specialization']
+        spetialisation = request.form.getlist('specialization[]')
         operating_hour = request.form['hospitalOperatingHours']
         visiting_hour = request.form['visitingHours']
         pharmacy_onsite = request.form['pharmacyOnSite']
@@ -280,7 +280,7 @@ def add_details():
 
     # Insert the data into the hospital collection
         hospital_data_collection.insert_one(data)
-        return redirect('/admin')
+        return redirect('/admin') 
     return render_template('hospital_details.html',)
 
 
