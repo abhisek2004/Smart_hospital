@@ -1,11 +1,12 @@
-from flask import request,session,redirect,flash,render_template,Blueprint,jsonify
+from flask import request, session, redirect, flash, render_template, Blueprint, jsonify
 from flask_bcrypt import Bcrypt
-from modules.db import users_collection,appointment_collection,hospital_data_collection,doctors_collection,feedback_collection
-from datetime import datetime,timedelta
+from modules.db import users_collection, appointment_collection, hospital_data_collection, doctors_collection, feedback_collection
+from datetime import datetime, timedelta
 from modules.login_required import login_required
 
-user_blueprint = Blueprint('user_blueprint',__name__)
+user_blueprint = Blueprint('user_blueprint', __name__)
 bcrypt = Bcrypt()
+
 
 @user_blueprint.route('/user_login', methods=['POST', 'GET'])
 def user_login():
@@ -43,6 +44,7 @@ def user_app():
         {'username': session.get('username')})
     return render_template('user_app.html', user=user_info, appointments=appointment)
 
+
 @user_blueprint.route('/user_register', methods=['GET', 'POST'])
 def user_register():
     if request.method == 'POST':
@@ -73,6 +75,7 @@ def user_register():
         return redirect('/user_login')
     return render_template('user_login_register.html')
 
+
 @user_blueprint.route('/appointment', methods=['POST', 'GET'])
 @login_required('user')
 def appointment():
@@ -98,14 +101,15 @@ def appointment():
         # Check if the selected time slot is available
         is_slot_full = check_and_allocate_time_slot(
             appointment_date, time_slot, hospital_name, speciality)
-        print("Is slot full",is_slot_full)
+        print("Is slot full", is_slot_full)
 
         doctor_count = len(doctor_names_list)
-        print("Doctor count:",doctor_count)
-        print("Speciality:",speciality)
+        print("Doctor count:", doctor_count)
+        print("Speciality:", speciality)
 
         if not doctor_count:
-            flash(f'Doctor for the selected field is not available in {hospital_name}. Sorry for the inconvenience', 'error')
+            flash(
+                f'Doctor for the selected field is not available in {hospital_name}. Sorry for the inconvenience', 'error')
             return redirect('/appointment')
 
         if is_slot_full:
@@ -115,7 +119,7 @@ def appointment():
 
         queue_number = calculate_queue_number(
             appointment_date, time_slot, hospital_name, speciality)
-        print("Queue number:",queue_number)
+        print("Queue number:", queue_number)
 
         # Store the appointment in the database
         appointment_data = {
@@ -138,7 +142,7 @@ def appointment():
         return redirect('/confirmation')
 
     # If GET request, render the appointment form
-    
+
     hospitals = hospital_data_collection.find()
     hospital_names = [hospital['hospital_name'] for hospital in hospitals]
 
@@ -147,19 +151,21 @@ def appointment():
 
     return render_template('appointment.html', hospitals=hospital_names, today=today, max_date=max_date)
 
+
 def add_days(date, days):
     return (date + timedelta(days=days)).strftime('%Y-%m-%d')
 
 # Route to book an appointment
 
-
-
 # New route to handle AJAX request for fetching doctors
-@user_blueprint.route('/get-doctors/<hospital>/<speciality>', methods=['GET'])
+
+
+@user_blueprint.route('/get_doctors/<hospital>/<speciality>', methods=['GET'])
 @login_required('user')
 def get_doctors(hospital, speciality):
     # Log the incoming values
-    print(f"Fetching doctors for hospital: {hospital}, specialization: {speciality}")
+    print(
+        f"Fetching doctors for hospital: {hospital}, specialization: {speciality}")
 
     # Fetch doctors based on the hospital and specialization
     doctor_names = doctors_collection.find(
@@ -187,18 +193,19 @@ def check_and_allocate_time_slot(appointment_date, time_slot, hospital_name, spe
         {'hospital_name': hospital_name, 'specialization': speciality})
     print(doctor_count)
 
-# Convert to datetime object
-    print("Date:",appointment_date)
-    print(f"Checking for date: {appointment_date}, time slot: {time_slot}, hospital: {hospital_name}")
+    # Convert to datetime object
+    print("Date:", appointment_date)
+    print(
+        f"Checking for date: {appointment_date}, time slot: {time_slot}, hospital: {hospital_name}")
     count = appointment_collection.count_documents({
         'appointment_date': appointment_date,
         'time_slot': time_slot,
         'hospital_name': hospital_name,
         'speciality': speciality
     })
-    print("appointment count on that day:",count)
+    print("appointment count on that day:", count)
     # Return True if the slot is full
-    return count >= 3*doctor_count
+    return count >= 3 * doctor_count
 
 
 def calculate_queue_number(appointment_date, time_slot, hospital_name, speciality):
@@ -211,17 +218,19 @@ def calculate_queue_number(appointment_date, time_slot, hospital_name, specialit
         'speciality': speciality
     })
 
-    return count+1
+    return count + 1
+
 
 @user_blueprint.route('/get_specializations', methods=['GET'])
 def get_specializations():
-    hospital_name = request.args.get('hospital_name')  # Get hospital name from query parameter
-    
+    # Get hospital name from query parameter
+    hospital_name = request.args.get('hospital_name')
+
     # Find hospital data in MongoDB
-    hospital_data = hospital_data_collection.find_one({"hospital_name": hospital_name})
-    print(hospital_data) 
+    hospital_data = hospital_data_collection.find_one(
+        {"hospital_name": hospital_name})
     if hospital_data:
-        specializations = hospital_data.get('specializations', [])
+        specializations = hospital_data.get('specialization', [])
         return jsonify({"specializations": specializations})
     else:
         return jsonify({"error": "Hospital not found"}), 404
