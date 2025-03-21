@@ -478,32 +478,32 @@ def admin_settings():
     data = hospital_data_collection.find_one({'hospital_name':hospital_name})
 
     if request.method == 'POST':
-        name = request.form['hospitalName']
-        ID = data['hospital_id']
-        address = request.form['address']
-        contact_number = request.form['contact_number']
-        emergency_contact_number = request.form['emergency_contact_number']
-        email = request.form['email']
-        website = request.form['website']
-        no_beds = int(request.form['no_beds'])
-        general_beds_occupied = int(request.form['general_beds_occupied'])
-        icu_beds = request.form['icu_beds']
-        icu_beds_occupied = request.form['icu_beds_occupied']
-        ventilators = request.form['ventilators']
-        ventilators_occupied = request.form['ventilators_occupied']
-        emergency_department = request.form['emergency_department']
-        specialization = request.form['specialization']
-        operating_hours = request.form['operating_hours']
-        visiting_hours = request.form['visiting_hours']
-        pharmacy_on_site = request.form['pharmacy_on_site']
-        total_doctor = request.form['total_doctor']
-        total_nurses = request.form['total_nurses']
-        administrative_staff = request.form['administrative_staff']
-        total_inventory_distributors = request.form['total_inventory_distributors']
-        ambulance_services = request.form['ambulance_services']
-        blood_bank = request.form['blood_bank']
-        diagnostic_services = request.form['diagnostic_services']
-
+        name = request.form.get('hospital_name')
+        ID = data['hospital_id']  # Assuming 'data' is a dictionary
+        address = request.form.get('address')
+        contact_number = request.form.get('contact_number')
+        emergency_contact_number = request.form.get('emergency_contact_number')
+        email = request.form.get('email')
+        website = request.form.get('website')
+        no_beds = int(request.form.get('no_beds', 0))  # Default to 0 if missing
+        general_beds_occupied = int(request.form.get('general_beds_occupied', 0))
+        icu_beds = request.form.get('icu_beds')
+        icu_beds_occupied = request.form.get('icu_beds_occupied')
+        ventilators = request.form.get('ventilators')
+        ventilators_occupied = request.form.get('ventilators_occupied')
+        emergency_department = request.form.get('emergency_department')
+        specialization = request.form.get('specialization')
+        operating_hours = request.form.get('operating_hours')
+        visiting_hours = request.form.get('visiting_hours')
+        pharmacy_on_site = request.form.get('pharmacy_on_site')
+        total_doctor = request.form.get('total_doctor')
+        total_nurses = request.form.get('total_nurses')
+        administrative_staff = request.form.get('administrative_staff')
+        total_inventory_distributors = request.form.get('total_inventory_distributors')
+        ambulance_services = request.form.get('ambulance_services')
+        blood_bank = request.form.get('blood_bank')
+        diagnostic_services = request.form.get('diagnostic_services')
+        print(name, ID, address, contact_number, emergency_contact_number, email, website, no_beds, general_beds_occupied, icu_beds, icu_beds_occupied, ventilators, ventilators_occupied, emergency_department, specialization, operating_hours, visiting_hours, pharmacy_on_site, total_doctor, total_nurses, administrative_staff, total_inventory_distributors, ambulance_services, blood_bank, diagnostic_services)
         hospital_data_collection.update_one(
             {'hospital_name': hospital_name},
             {'$set': {'hospital_name': name,
@@ -542,7 +542,7 @@ def update_hospital():
     try:
         hospital_id = request.form['hospitalID']  # Assuming this is the unique identifier
         updated_data = {
-            "hospital_name": request.form['hospitalName'],
+            "hospital_name": request.form['hospital_name'],
             "address": request.form['address'],
             "contact_number": request.form['contact_number'],
             "emergency_contact_number": request.form['emergency_contact_number'],

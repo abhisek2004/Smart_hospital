@@ -229,7 +229,7 @@
         <p><strong>ID:</strong> {{ data.hospital_id }}</p>
 
         <label>Hospital Name:</label>
-        <input type="text" class="editable" name="hospitalName" value="{{ data.hospital_name }}">
+        <input type="text" class="editable" name="hospital_name" value="{{ data.hospital_name }}">
 
         <label>Address:</label>
         <input type="text" class="editable" name="address"
@@ -401,31 +401,6 @@
       </script>
 
     </div>
-
-    <!-- JavaScript for Auto-Saving Changes -->
-    <script>
-      document.querySelectorAll(".editable").forEach(input => {
-        input.addEventListener("change", function () {
-          let key = this.dataset.key;
-          let value = this.value;
-
-          fetch("/admin_settings", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ key: key, value: value })
-          })
-            .then(response => response.json())
-            .then(data => {
-              document.querySelector(".status-message").innerText = "✅ Changes saved!";
-              setTimeout(() => { document.querySelector(".status-message").innerText = ""; }, 2000);
-            })
-            .catch(error => {
-              console.error("Error:", error);
-              document.querySelector(".status-message").innerText = "❌ Error saving changes!";
-            });
-        });
-      });
-    </script>
 
     <!-- Modern Styling -->
     <style>

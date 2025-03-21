@@ -27,7 +27,7 @@ def doc_login():
                 session['username'] = username
                 session['hospital_name'] = doctor_data.get('hospital_name')
                 session['specialization'] = doctor_data.get('specialization')
-                session['role'] = 'doc'
+                session['role'] = 'doctor'
                 return redirect('/doctor_app')  # Redirect to the doctor app
 
             else:
@@ -46,16 +46,18 @@ def doc_login():
 
 
 @doctor_blueprint.route('/doctor_app', methods=["POST", "GET"])
-@login_required('doc')
+@login_required('doctor')
 def doctor_app():
     appointments = appointment_collection.find({'hospital_name': session.get(
         'hospital_name'), 'speciality': session.get('specialization')})
     doc_detail = doctors_collection.find_one(
         {'username': session.get('username')})
-    return render_template('doctor_dash.html', appointments=appointments, doctor=doc_detail)
+    appointment_count = appointment_collection.count_documents({'hospital_name': session.get('hospital_name')})
+    return render_template('doctor_dash.html', appointments=appointments, doctor=doc_detail,total_appointments=appointment_count)
 
 
 @doctor_blueprint.route('/bed_status', methods=['GET', 'POST'])
+@login_required('doctor')
 def status():
     # Get list of hospitals for dropdown menu
     hospitals = hospital_data_collection.find()
