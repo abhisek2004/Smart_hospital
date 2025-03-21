@@ -163,7 +163,7 @@
       <a class="navbar-brand" href="#">
         <img src="../static/images/delhi.png" alt="Delhi Logo" class="rounded-circle" width="40" height="40" />
       </a>
-      <h3 class="text-light">Government of NCT of Delhi</h3>
+      <!-- <h3 class="text-light">Government of NCT of Delhi</h3> -->
       <ul class="navbar-nav ml-auto">
         <!-- Keeping the navbar items if any -->
       </ul>
@@ -181,8 +181,32 @@
           <input type="email" id="hospitalmail" name="hospitalmail" required /><br />
 
           <label for="hospitalpass">Password:</label>
-          <input type="password" id="hospitalpass" name="hospitalpass" required pattern=".{8,}"
-            title="Password should be at least 8 characters long." /><br />
+          <div style="position: relative; display: inline-block; width: 100%;">
+            <input type="password" id="hospitalpass" name="hospitalpass" required pattern=".{8,}"
+              title="Password should be at least 8 characters long." style="width: 100%; padding-right: 40px;">
+            <i id="togglePassword" class="fa fa-eye"
+              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+          </div>
+
+          <script>
+            document.getElementById('togglePassword').addEventListener('click', function () {
+              var passwordField = document.getElementById('hospitalpass');
+              var icon = this;
+              if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+              } else {
+                passwordField.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+              }
+            });
+          </script>
+
+          <!-- Include FontAwesome for icons -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
           <!-- Button container -->
           <div style="text-align: center; margin-top: 10px">
             <button type="submit" style="
