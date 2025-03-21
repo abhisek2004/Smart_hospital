@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -104,28 +105,16 @@
 
   <body>
     <section class="header">
-      <nav
-        class="navbar navbar-expand-lg sticky-navbar"
-        style="background-color: #00637f"
-        data-bs-theme="dark"
-      >
+      <nav class="navbar navbar-expand-lg sticky-navbar" style="background-color: #00637f" data-bs-theme="dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-            <img
-              src="../static/images/delhi.png"
-              alt="Delhi Logo"
-              class="rounded-circle"
-              width="40"
-              height="40"
-            />
+            <img src="../static/images/delhi.png" alt="Delhi Logo" class="rounded-circle" width="40" height="40" />
           </a>
           <h3 class="mehran">Government of NCT of Delhi</h3>
           <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav ms-auto justify-content-end navbar1">
               <li class="nav-item mr-3">
-                <a class="nav-link text-light" href="/user_app"
-                  >User Dashboard</a
-                >
+                <a class="nav-link text-light" href="/user_app">User Dashboard</a>
               </li>
               <li class="nav-item mr-3">
                 <a class="nav-link text-light" href="/user_logout">Logout</a>
@@ -157,68 +146,35 @@
                 <!-- Full Name Input -->
                 <div class="mb-3">
                   <label for="nameInput" class="form-label">Full Name</label>
-                  <input
-                    type="text"
-                    id="nameInput"
-                    placeholder="Enter Full Name"
-                    name="name"
-                    class="form-control"
-                  />
+                  <input type="text" id="nameInput" placeholder="Enter Full Name" name="name" class="form-control" />
                 </div>
 
                 <!-- Mobile Number Input -->
                 <div class="mb-3">
-                  <label for="numberInput" class="form-label"
-                    >Mobile Number</label
-                  >
-                  <input
-                    type="text"
-                    id="numberInput"
-                    placeholder="Enter Mobile Number"
-                    name="number"
-                    class="form-control"
-                  />
+                  <label for="numberInput" class="form-label">Mobile Number</label>
+                  <input type="text" id="numberInput" placeholder="Enter Mobile Number" name="number"
+                    class="form-control" />
                 </div>
 
                 <!-- Email Address Input -->
                 <div class="mb-3">
-                  <label for="emailInput" class="form-label"
-                    >Email Address</label
-                  >
-                  <input
-                    type="text"
-                    id="emailInput"
-                    placeholder="Enter Email Address"
-                    name="email"
-                    class="form-control"
-                  />
+                  <label for="emailInput" class="form-label">Email Address</label>
+                  <input type="text" id="emailInput" placeholder="Enter Email Address" name="email"
+                    class="form-control" />
                 </div>
 
                 <!-- Address Input -->
                 <div class="mb-3">
                   <label for="addressInput" class="form-label">Address</label>
-                  <input
-                    type="text"
-                    id="addressInput"
-                    placeholder="Enter Your Address"
-                    name="Address"
-                    class="form-control"
-                  />
+                  <input type="text" id="addressInput" placeholder="Enter Your Address" name="Address"
+                    class="form-control" />
                 </div>
 
                 <!-- Appointment Date Input -->
                 <div class="mb-3">
-                  <label for="dateInput" class="form-label"
-                    >Appointment Date</label
-                  >
-                  <input
-                    type="date"
-                    id="dateInput"
-                    name="dat"
-                    min="{{ today }}"
-                    max="{{ max_date }}"
-                    class="form-control"
-                  />
+                  <label for="dateInput" class="form-label">Appointment Date</label>
+                  <input type="date" id="dateInput" name="dat" min="{{ today }}" max="{{ max_date }}"
+                    class="form-control" />
                 </div>
 
                 <!-- Time Slot Selection -->
@@ -242,15 +198,8 @@
                 </div>
                 <!-- Hospital Selection with Dynamic Doctor Update -->
                 <div class="form-group">
-                  <label for="hospital" class="form-label"
-                    >Select Hospital</label
-                  >
-                  <select
-                    id="hospital"
-                    name="hospital"
-                    class="form-control"
-                    required
-                  >
+                  <label for="hospital" class="form-label">Select Hospital</label>
+                  <select id="hospital" name="hospital" class="form-control" required>
                     <option value="" disabled selected>Select Hospital</option>
                     {% for hospital in hospitals %}
                     <option value="{{ hospital }}">{{ hospital }}</option>
@@ -261,11 +210,7 @@
                 <!-- Speciality Selection -->
                 <div class="mb-3">
                   <label for="specialization">Select Specialization:</label>
-                  <select
-                    id="specialization"
-                    name="specialization"
-                    class="form-control"
-                  >
+                  <select id="specialization" name="specialization" class="form-control">
                     <option value="" disabled selected>Select an option</option>
                     <option value="Medicine">Medicine</option>
                     <option value="Orthopedic">Orthopedic</option>
@@ -310,12 +255,8 @@
                 <!-- Disease Description -->
                 <div class="mb-3">
                   <label for="diseaseDescription">Description Disease:</label>
-                  <input
-                    type="text"
-                    placeholder="Enter Disease Description"
-                    name="diseaseDescription"
-                    class="form-control"
-                  />
+                  <input type="text" placeholder="Enter Disease Description" name="diseaseDescription"
+                    class="form-control" />
                 </div>
 
                 <!-- Submit Button -->
@@ -331,71 +272,70 @@
       </div>
     </div>
 
-    <!-- jQuery for Dynamic Doctor Selection -->
+    <!-- jQuery for Dynamic Specialization and Doctor Selection -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+      function fetchSpecializations() {
+        const hospitalName = document.getElementById("hospital").value;
+        const specializationSelect = document.getElementById("specialization");
 
+        // Clear previous options
+        specializationSelect.innerHTML = '<option value="">-- Select a Specialization --</option>';
 
-              function loadSpecializations() {
-          const hospitalName = document.getElementById("hospital").value;
-          const specializationSelect = document.getElementById("specialization");
-
-          // Clear previous options
-          specializationSelect.innerHTML = '<option value="">-- Select a Specialization --</option>';
-
-          if (hospitalName) {
-              fetch(`/get_specializations?hospital_name=${encodeURIComponent(hospitalName)}`)
-              .then(response => response.json())
-              .then(data => {
-                  if (data.specializations) {
-                      data.specializations.forEach(specialization => {
-                          const option = document.createElement("option");
-                          option.value = specialization;
-                          option.textContent = specialization;
-                          specializationSelect.appendChild(option);
-                      });
-                  } else {
-                      alert("No specializations found for this hospital.");
-                  }
-              })
-              .catch(error => console.error("Error:", error));
-          }
-      }
-              function fetchDoctors() {
-                const hospital = $("#hospital").val();
-                const specialization = $("#specialization").val();
-
-                if (hospital && specialization) {
-                  $.ajax({
-                    url: `/get_doctors/${hospital}/${specialization}`, // API call to fetch doctors based on hospital and specialization
-                    method: "GET",
-                    success: function (data) {
-                      const doctorSelect = $("#doctor");
-                      doctorSelect.empty();
-                      doctorSelect.append(
-                        '<option value="" disabled selected>Select Doctor</option>'
-                      );
-                      data.doctors.forEach((doctor) => {
-                        doctorSelect.append(
-                          `<option value="${doctor}">${doctor}</option>`
-                        );
-                      });
-                    },
-                    error: function () {
-                      alert("Error fetching doctors. Please try again.");
-                    },
-                  });
-                }
+        if (hospitalName) {
+          fetch(`/get_specializations?hospital_name=${encodeURIComponent(hospitalName)}`)
+            .then(response => response.json())
+            .then(data => {
+              if (data.specializations && data.specializations.length > 0) {
+                data.specializations.forEach(specialization => {
+                  const option = document.createElement("option");
+                  option.value = specialization;
+                  option.textContent = specialization;
+                  specializationSelect.appendChild(option);
+                });
+              } else {
+                alert("No specializations found for this hospital.");
               }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+      }
 
-              // Fetch specializations when hospital is changed
-              $("#hospital").on("change", fetchSpecializations);
+      function fetchDoctors() {
+        const hospital = $("#hospital").val();
+        const specialization = $("#specialization").val();
 
-              // Fetch doctors when specialization is changed
-              $("#specialization").on("change", fetchDoctors);
-            });
+        if (hospital && specialization) {
+          $.ajax({
+            url: `/get_doctors/${hospital}/${specialization}`, // API call to fetch doctors based on hospital and specialization
+            method: "GET",
+            success: function (data) {
+              const doctorSelect = $("#doctor");
+              doctorSelect.empty();
+              doctorSelect.append('<option value="" disabled selected>Select Doctor</option>');
+              if (data.doctors && data.doctors.length > 0) {
+                data.doctors.forEach((doctor) => {
+                  doctorSelect.append(`<option value="${doctor}">${doctor}</option>`);
+                });
+              } else {
+                alert("No doctors found for this specialization.");
+              }
+            },
+            error: function () {
+              alert("Error fetching doctors. Please try again.");
+            },
+          });
+        }
+      }
+
+      // Fetch specializations when hospital is changed
+      $("#hospital").on("change", fetchSpecializations);
+
+      // Fetch doctors when specialization is changed
+      $("#specialization").on("change", fetchDoctors);
     </script>
   </body>
+
 </html>
