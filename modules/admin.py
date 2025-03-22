@@ -8,6 +8,17 @@ import io
 from flask_bcrypt import Bcrypt
 from modules.login_required import login_required
 from modules.db import contact_collection,admin_collection,doctors_collection,appointment_collection,hospital_data_collection,hospital_discharge_collection,inventory_collection,patients_collection,superadmin_collection,stock_collection,feedback_collection
+from flask import Flask, render_template, request, send_file, session
+from pymongo import MongoClient
+import io
+import qrcode
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.pdfgen import canvas
+
+
 admin_blueprint = Blueprint('admin_blueprint',__name__)
 bcrypt = Bcrypt()
 
@@ -374,96 +385,145 @@ def stock_details():
 
 
 @admin_blueprint.route('/admin/discharge', methods=['POST', 'GET'])
-@login_required('admin')
 def submit_discharge():
     if request.method == 'POST':
-        # Extracting form data
-        patient_id = request.form.get('patient_id')
-        patient_name = request.form.get('patient_name')
-        admission_date = request.form.get('admission_date')
-        discharge_date = request.form.get('discharge_date')
-        diagnosis = request.form.get('diagnosis')
-        treatment = request.form.get('treatment')
-        doctor_name = request.form.get('doctor_name')
-        discharge_summary = request.form.get('discharge_summary')
-        follow_up_instructions = request.form.get('follow_up_instructions')
-        medications = request.form.get('medications')
-        contact_info = request.form.get('contact_info')
-        gender = request.form.get('gender')
-        address = request.form.get('address')
-        bed_type = request.form.get('bedtype')
-
-        hospital_name_patient = session.get('hospital_name')
-        data_discharge = {
-            'patient_id': patient_id,
-            'patient_name': patient_name,
-            'admission_date': admission_date,
-            'discharge_date': discharge_date,
-            'diagnosis': diagnosis,
-            'treatment': treatment,
-            'doctor_name': doctor_name,
-            'discharge_summary': discharge_summary,
-            'follow_up_instructions': follow_up_instructions,
-            'medications': medications,
-            'contact_info': contact_info,
-            'gender': gender,
-            'address': address
+        # Extract form data
+        patient_data = {
+            'Patient ID': request.form.get('patient_id'),
+            'Patient Name': request.form.get('patient_name'),
+            'Admission Date': request.form.get('admission_date'),
+            'Discharge Date': request.form.get('discharge_date'),
+            'Diagnosis': request.form.get('diagnosis'),
+            'Treatment': request.form.get('treatment'),
+            'Doctor Name': request.form.get('doctor_name'),
+            'Discharge Summary': request.form.get('discharge_summary'),
+            'Follow-Up Instructions': request.form.get('follow_up_instructions'),
+            'Medications': request.form.get('medications'),
+            'Contact Info': request.form.get('contact_info'),
+            'Gender': request.form.get('gender'),
+            'Address': request.form.get('address'),
+            'Bed Type': request.form.get('bedtype')
         }
-        hospital_discharge_collection.insert_one(data_discharge)
+
+        hospital_name_patient = session.get('hospital_name', 'City Hospital')
+
+        # Save in MongoDB
+        hospital_discharge_collection.insert_one(patient_data)
         hospital_data_collection.update_one(
             {'hospital_name': hospital_name_patient},
-            # Increment the occupied beds count by 1
-            {'$inc': {f'occupied_{bed_type}': -1}}
+            {'$inc': {f'occupied_{patient_data["Bed Type"]}': -1}}
         )
-        # Generate PDF with the provided details
+
+        # Generate PDF
         pdf_buffer = io.BytesIO()
         doc = SimpleDocTemplate(pdf_buffer, pagesize=A4)
         styles = getSampleStyleSheet()
-        # Patient details inside the pdf
+
         elements = []
-        elements.append(Paragraph("Patient ID Card", styles['Title']))
+
+        # Add Background Image (Optional: Replace with your hospital logo or theme)
+        # Provide a valid path if using a real background image
+        background_image_path = "hospital_bg.jpg"
+
+        # Title Section
+        elements.append(
+            Paragraph(f"<b>{hospital_name_patient}</b>", styles['Title']))
         elements.append(Spacer(1, 12))
         elements.append(
-            Paragraph(f"Full Name: {patient_name}", styles['Normal']))
-        elements.append(Paragraph(f"Admission Date: {                       admission_date}", styles['Normal']))
-        elements.append(Paragraph(f"Gender: {gender}", styles['Normal']))
-        elements.append(Paragraph(f"Address: {address}", styles['Normal']))
-        elements.append(Paragraph(f"Phone Number: {contact_info}", styles['Normal']))
-        elements.append(Paragraph(f"Diagnosis: {diagnosis}", styles['Normal']))
-        elements.append(Paragraph(f"Discharge Summary: {discharge_summary}", styles['Normal']))
+            Paragraph(" <b>Patient Discharge Summary</b>", styles['Heading2']))
+        elements.append(Spacer(1, 12))
 
-        # Generate QR code
+        # Patient Details Table
+        table_data = [[Paragraph(f"<b>{key}</b>", styles['Normal']), Paragraph(str(value), styles['Normal'])]
+                      for key, value in patient_data.items()]
+
+        table = Table(table_data, colWidths=[180, 300])
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.darkblue),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, -1), 10),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+        ]))
+
+        elements.append(table)
+        elements.append(Spacer(1, 12))
+
+        # Important Health & Recovery Tips
+        elements.append(
+            Paragraph("<b> Health & Wellness Tips for Recovery:</b>", styles['Heading3']))
+        health_tips = [
+            " Drink Plenty of Water – Stay hydrated to help your body recover faster.",
+            " Take a Bath Daily – Maintain good hygiene to prevent infections. ",
+            " Eat an Apple Every Day – 'An apple a day keeps the doctor away!' ",
+            " Consume a Balanced Diet – Include proteins, vitamins, and minerals.",
+            " Avoid Junk Food – Say NO to excessive sugar, salt, and oily foods. ",
+            " Take Your Medicines on Time – Follow the prescribed dosage carefully.",
+            " Get Enough Rest & Sleep – Allow your body to heal and regain energy. ",
+            " Avoid Smoking & Alcohol – These slow down recovery and harm your health. ",
+            " Do Light Exercise – Gentle movements help in faster recovery. ",
+            " Keep Your Surroundings Clean – Prevent infections and maintain hygiene.",
+            " Regularly Change Wound Dressings – If applicable, as per doctor’s advice.",
+            " Follow Your Doctor’s Instructions – Always stick to medical advice.",
+            " Keep Emergency Contacts Handy – Save the hospital and doctor’s numbers.",
+            " Wash Hands Frequently – Avoid germs and stay safe. ",
+            " Monitor Your Symptoms – Report any unusual pain, fever, or discomfort. ",
+            " Attend All Follow-Up Appointments – Ensure complete recovery. ",
+            " Stay Positive & Stress-Free – Mental health is just as important. ",
+        ]
+
+        for tip in health_tips:
+            elements.append(Paragraph(tip, styles['Normal']))
+
+        elements.append(Spacer(1, 12))
+
+        # Generate QR Code
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
             box_size=10,
             border=4,
         )
-        qr.add_data(
-            f"Name: {patient_name}\Admission Date: {admission_date}\nPhone: {contact_info}\nDischarge Summary: {diagnosis}")
+        qr_data = "\n".join(
+            [f"{key}: {value}" for key, value in patient_data.items()])
+        qr.add_data(qr_data)
         qr.make(fit=True)
         img = qr.make_image(fill='black', back_color='white')
         qr_buffer = io.BytesIO()
         img.save(qr_buffer, 'PNG')
         qr_buffer.seek(0)
 
-        # Add QR code to PDF
-        elements.append(Spacer(1, 12))
+        # Add QR Code to PDF
+        elements.append(
+            Paragraph("<b> Scan QR for Full Details:</b>", styles['Heading3']))
+        elements.append(Spacer(1, 6))
         elements.append(Image(qr_buffer, width=100, height=100))
+
+        elements.append(Spacer(1, 12))
+
+        # Footer Section
+        elements.append(Paragraph(
+            "Thank you for choosing our hospital. Wishing you a speedy recovery! ", styles['Italic']))
+        elements.append(Spacer(1, 6))
+        elements.append(
+            Paragraph(" Hospital Address: 123, Main Street, City XYZ", styles['Normal']))
+        elements.append(
+            Paragraph(" Emergency Helpline: +91-9999999999", styles['Normal']))
 
         doc.build(elements)
 
         pdf_buffer.seek(0)
-        # @after_this_request
-        # def redirect_to_admin(reponse=302):
-        #     return redirect('/admin')
-        return send_file(pdf_buffer, as_attachment=True, download_name='patient_id_card.pdf', mimetype='application/pdf')
-        # return redirect('/admin')
+
+        return send_file(pdf_buffer, as_attachment=True, download_name='Patient_Discharge_Summary.pdf', mimetype='application/pdf')
+
     return render_template('Patient_discharge.html')
 
 @admin_blueprint.route('/admin_feedback',methods=['POST','GET'])
 def admin_feedback():
-    hospital_name = session.get('hospital_name')
+    hospital_name = feedback_collection.find({})
     feedbacks = feedback_collection.find()
     return render_template('feedback.html')
 
