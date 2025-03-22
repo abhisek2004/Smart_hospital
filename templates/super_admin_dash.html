@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,14 +9,8 @@
     <link rel="stylesheet" href="../static/css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <style>
       body {
@@ -304,29 +299,19 @@
 
       <ul class="sidebar-menu">
         <li>
-          <a href="#"
-            ><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a
-          >
+          <a href="#"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
         </li>
         <li>
-          <a href="/superadmin/addHospital"
-            ><i class="fas fa-hospital"></i><span>Add Hospital</span></a
-          >
+          <a href="/superadmin/addHospital"><i class="fas fa-hospital"></i><span>Add Hospital</span></a>
         </li>
         <li>
-          <a href="/superadmin/checkHospitalStatus"
-            ><i class="fas fa-user-md"></i><span>Check Hospital Status</span></a
-          >
+          <a href="/superadmin/checkHospitalStatus"><i class="fas fa-user-md"></i><span>Check Hospital Status</span></a>
         </li>
         <li>
-          <a href="/superadmin/feedback"
-            ><i class="fas fa-comments"></i><span>Feedback</span></a
-          >
+          <a href="/superadmin/feedback"><i class="fas fa-comments"></i><span>Feedback</span></a>
         </li>
         <li>
-          <a href="/superadmin_logout"
-            ><i class="fas fa-sign-out-alt"></i><span>Logout</span></a
-          >
+          <a href="/superadmin_logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
         </li>
       </ul>
       <script>
@@ -391,11 +376,12 @@
 
     <div class="charts-container">
       <canvas id="hospitalStatsChart"></canvas>
-      <canvas id="bedAvailabilityChart"></canvas>
+      <!-- <canvas id="bedAvailabilityChart"></canvas> -->
+      <canvas id="patientTrendsChart"></canvas>
     </div>
     <div class="charts-container">
-      <canvas id="patientTrendsChart"></canvas>
       <canvas id="staffDistributionChart"></canvas>
+      <canvas id="generalBedsChart"></canvas>
       <style>
         .charts-container {
           display: flex;
@@ -417,6 +403,12 @@
         }
       </style>
     </div>
+    <div class="charts-container">
+
+      <canvas id="icuBedsChart"></canvas>
+      <canvas id="ventilatorChart"></canvas>
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -502,22 +494,22 @@
       });
 
       // 🔹 2️⃣ Doughnut Chart: Bed Availability
-      new Chart(document.getElementById('bedAvailabilityChart').getContext('2d'), {
-        type: 'doughnut',
-        data: {
-          labels: ['ICU Beds Available', 'ICU Beds Used', 'Ventilators Available', 'Ventilators Used', 'General Beds Available', 'General Beds Used'],
-          datasets: [{
-            label: 'Beds',
-            data: [
-              availableICUBeds, totalICUBeds - availableICUBeds,
-              availableVentilators, totalVentilators - availableVentilators,
-              availableGeneralBeds, totalGeneralBeds - availableGeneralBeds
-            ],
-            backgroundColor: ['#4CAF50', '#F44336', '#03A9F4', '#FFC107', '#8BC34A', '#9E9E9E']
-          }]
-        },
-        options: { responsive: true }
-      });
+      // new Chart(document.getElementById('bedAvailabilityChart').getContext('2d'), {
+      //   type: 'doughnut',
+      //   data: {
+      //     labels: ['ICU Beds Available', 'ICU Beds Used', 'Ventilators Available', 'Ventilators Used', 'General Beds Available', 'General Beds Used'],
+      //     datasets: [{
+      //       label: 'Beds',
+      //       data: [
+      //         availableICUBeds, totalICUBeds - availableICUBeds,
+      //         availableVentilators, totalVentilators - availableVentilators,
+      //         availableGeneralBeds, totalGeneralBeds - availableGeneralBeds
+      //       ],
+      //       backgroundColor: ['#4CAF50', '#F44336', '#03A9F4', '#FFC107', '#8BC34A', '#9E9E9E']
+      //     }]
+      //   },
+      //   options: { responsive: true }
+      // });
 
       // 🔹 3️⃣ Line Chart: Active Patient Trends
       new Chart(document.getElementById('patientTrendsChart').getContext('2d'), {
@@ -549,5 +541,47 @@
         options: { responsive: true }
       });
     </script>
+    <script>
+      // 🔹 General Beds Usage Chart
+      new Chart(document.getElementById('generalBedsChart').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: ['General Beds Available', 'General Beds Used'],
+          datasets: [{
+            data: [availableGeneralBeds, totalGeneralBeds - availableGeneralBeds],
+            backgroundColor: ['#4CAF50', '#F44336']
+          }]
+        },
+        options: { responsive: true }
+      });
+
+      // 🔹 ICU Beds Usage Chart
+      new Chart(document.getElementById('icuBedsChart').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: ['ICU Beds Available', 'ICU Beds Used'],
+          datasets: [{
+            data: [availableICUBeds, totalICUBeds - availableICUBeds],
+            backgroundColor: ['#03A9F4', '#FF9800']
+          }]
+        },
+        options: { responsive: true }
+      });
+
+      // 🔹 Ventilator Usage Chart
+      new Chart(document.getElementById('ventilatorChart').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Ventilators Available', 'Ventilators Used'],
+          datasets: [{
+            data: [availableVentilators, totalVentilators - availableVentilators],
+            backgroundColor: ['#8BC34A', '#9E9E9E']
+          }]
+        },
+        options: { responsive: true }
+      });
+    </script>
+
   </body>
+
 </html>
