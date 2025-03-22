@@ -20,7 +20,6 @@
 
       body {
         font-family: 'Poppins', sans-serif;
-        /* background: #f5f5f5; */
         background-image: url('../static/images/Pulmonology.jpeg');
         background-size: cover;
         background-position: center;
@@ -99,6 +98,32 @@
       h1 {
         color: #007b7b;
         margin-bottom: 10px;
+      }
+
+      /* Doctor Details Card */
+      .doctor-details-card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        text-align: left;
+        max-width: 600px;
+        margin: 20px auto;
+      }
+
+      .doctor-details-card h2 {
+        color: #007b7b;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .doctor-details-card p {
+        margin: 10px 0;
+        font-size: 1rem;
+      }
+
+      .doctor-details-card p strong {
+        color: #007b7b;
       }
 
       /* Stats Section */
@@ -221,8 +246,17 @@
 
     <!-- Main Content -->
     <div class="main-content">
-      <h1>Welcome to the Doctor Dash </h1>
-      <!-- <p>Manage your appointments, patients, and reports efficiently.</p> -->
+      <h1>Welcome to the Doctor Dashboard</h1>
+
+      <!-- Doctor Details Card -->
+      <div class="doctor-details-card">
+        <h2>Doctor Details</h2>
+        <p><strong>Name:</strong> {{ doctor.name }}</p>
+        <p><strong>Email:</strong> {{ doctor.email }}</p>
+        <p><strong>Phone Number:</strong> {{ doctor.phone }}</p>
+        <p><strong>Aadhar:</strong> {{ doctor.aadhar }}</p>
+        <p><strong>Hospital Name:</strong> {{ doctor.hospital_name }}</p>
+      </div>
 
       <!-- Stats -->
       <div class="stats">
