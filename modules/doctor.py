@@ -57,7 +57,6 @@ def doctor_app():
 
 
 @doctor_blueprint.route('/bed_status', methods=['GET', 'POST'])
-@login_required('doctor')
 def status():
     # Get list of hospitals for dropdown menu
     hospitals = hospital_data_collection.find()
