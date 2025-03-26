@@ -88,7 +88,7 @@ def appointment():
         address = request.form['Address']
         appointment_date = request.form['dat']
         time_slot = request.form['timeSlot']
-        speciality = request.form['diseaseInput']
+        speciality = request.form['specialization']
         disease_description = request.form['diseaseDescription']
         hospital_name = request.form['hospital']
         doctorname = request.form['doctor']
