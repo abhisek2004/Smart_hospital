@@ -201,15 +201,15 @@
         <p><span class="highlight">Queue Number:</span> {{ contact.queue_number }}</p>
 
         <!-- Appointment Status -->
-        <p>Status: <span
+        <!-- <p>Status: <span
             class="status {% if contact.status == 'Approved' %}approved{% elif contact.status == 'Rejected' %}rejected{% else %}pending{% endif %}"
-            id="status-{{ contact.id }}">{{ contact.status }}</span></p>
+            id="status-{{ contact.id }}">{{ contact.status }}</span></p> -->
 
         <!-- Approve / Reject Buttons -->
-        <div class="action-buttons">
+        <!-- <div class="action-buttons">
           <button class="btn-approve" onclick="updateStatus('{{ contact.id }}', 'Approved')">Approve</button>
           <button class="btn-reject" onclick="updateStatus('{{ contact.id }}', 'Rejected')">Reject</button>
-        </div>
+        </div> -->
       </div>
       {% endfor %}
     </div>
